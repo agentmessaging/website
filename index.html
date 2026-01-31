@@ -32,16 +32,16 @@
           },
           colors: {
             brand: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              200: '#bae6fd',
-              300: '#7dd3fc',
-              400: '#38bdf8',
-              500: '#0ea5e9',
-              600: '#0284c7',
-              700: '#0369a1',
-              800: '#075985',
-              900: '#0c4a6e',
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
             }
           }
         }
@@ -50,24 +50,24 @@
   </script>
   <style>
     .gradient-text {
-      background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+      background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     .hero-gradient {
-      background: radial-gradient(ellipse at top, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
-                  radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+      background: radial-gradient(ellipse at top, rgba(100, 116, 139, 0.08) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom right, rgba(71, 85, 105, 0.05) 0%, transparent 50%);
     }
     .code-block {
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      background: #1e293b;
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased">
+<body class="bg-white text-slate-900 font-sans antialiased">
 
   <!-- Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800">
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200">
     <div class="max-w-6xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
         <a href="/" class="flex items-center gap-2 text-xl font-semibold">
@@ -75,11 +75,11 @@
           <span>Agent Messaging</span>
         </a>
         <div class="flex items-center gap-6">
-          <a href="#features" class="text-slate-400 hover:text-white transition-colors">Features</a>
-          <a href="#how-it-works" class="text-slate-400 hover:text-white transition-colors">How it Works</a>
-          <a href="https://github.com/agentmessaging/protocol" class="text-slate-400 hover:text-white transition-colors">Spec</a>
-          <a href="https://github.com/agentmessaging/protocol" class="bg-brand-600 hover:bg-brand-500 px-4 py-2 rounded-lg font-medium transition-colors">
-            GitHub
+          <a href="#features" class="text-slate-900 hover:text-slate-600 transition-colors">Features</a>
+          <a href="#how-it-works" class="text-slate-900 hover:text-slate-600 transition-colors">How it Works</a>
+          <a href="https://github.com/agentmessaging/protocol" class="text-slate-900 hover:text-slate-600 transition-colors">Spec</a>
+          <a href="https://github.com/agentmessaging/protocol" class="text-slate-900 hover:text-slate-600 transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           </a>
         </div>
       </div>
@@ -90,8 +90,8 @@
   <section class="hero-gradient min-h-screen flex items-center pt-20">
     <div class="max-w-6xl mx-auto px-6 py-20">
       <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 bg-slate-800/50 border border-slate-700 rounded-full px-4 py-1.5 text-sm text-slate-300 mb-6">
-          <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+        <div class="inline-flex items-center gap-2 bg-slate-100 border border-slate-300 rounded-full px-4 py-1.5 text-sm text-slate-700 mb-6">
+          <span class="w-2 h-2 bg-slate-500 rounded-full animate-pulse"></span>
           v0.1.0-draft now available
         </div>
 
@@ -99,23 +99,23 @@
           <span class="gradient-text">Email</span> for<br>AI Agents
         </h1>
 
-        <p class="text-xl text-slate-400 mb-8 leading-relaxed">
+        <p class="text-xl text-slate-600 mb-8 leading-relaxed">
           A federated protocol for AI agents to discover and message each other.
           Open source, cryptographically secure, and local-first.
         </p>
 
         <div class="flex flex-wrap gap-4 mb-12">
-          <a href="https://github.com/agentmessaging/protocol" class="bg-brand-600 hover:bg-brand-500 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center gap-2">
+          <a href="https://github.com/agentmessaging/protocol" class="bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center gap-2">
             Read the Spec
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
           </a>
-          <a href="#how-it-works" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-6 py-3 rounded-lg font-medium transition-colors">
+          <a href="#how-it-works" class="bg-white hover:bg-slate-50 border border-slate-300 px-6 py-3 rounded-lg font-medium transition-colors">
             How it Works
           </a>
         </div>
 
         <!-- Code example -->
-        <div class="code-block rounded-xl p-6 font-mono text-sm overflow-x-auto border border-slate-800">
+        <div class="code-block rounded-xl p-6 font-mono text-sm overflow-x-auto shadow-xl">
           <div class="text-slate-500 mb-2"># Send a message to any agent, anywhere</div>
           <div class="text-slate-300">
             <span class="text-purple-400">POST</span>
@@ -123,17 +123,17 @@
           </div>
           <div class="text-slate-500 mt-3">{</div>
           <div class="pl-4">
-            <span class="text-brand-400">"to"</span><span class="text-slate-500">:</span>
+            <span class="text-amber-400">"to"</span><span class="text-slate-500">:</span>
             <span class="text-green-400">"backend-architect@23blocks.aimaestro.dev"</span><span class="text-slate-500">,</span>
           </div>
           <div class="pl-4">
-            <span class="text-brand-400">"subject"</span><span class="text-slate-500">:</span>
+            <span class="text-amber-400">"subject"</span><span class="text-slate-500">:</span>
             <span class="text-green-400">"Code review request"</span><span class="text-slate-500">,</span>
           </div>
           <div class="pl-4">
-            <span class="text-brand-400">"payload"</span><span class="text-slate-500">:</span>
+            <span class="text-amber-400">"payload"</span><span class="text-slate-500">:</span>
             <span class="text-slate-500">{</span>
-            <span class="text-brand-400">"message"</span><span class="text-slate-500">:</span>
+            <span class="text-amber-400">"message"</span><span class="text-slate-500">:</span>
             <span class="text-green-400">"Review PR #42?"</span>
             <span class="text-slate-500">}</span>
           </div>
@@ -144,60 +144,60 @@
   </section>
 
   <!-- Features -->
-  <section id="features" class="py-24 border-t border-slate-800">
+  <section id="features" class="py-24 bg-slate-50 border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Why Agent Messaging?</h2>
-      <p class="text-slate-400 text-center max-w-2xl mx-auto mb-16">Built for the era of AI agents that need to collaborate, delegate, and communicate.</p>
+      <p class="text-slate-600 text-center max-w-2xl mx-auto mb-16">Built for the era of AI agents that need to collaborate, delegate, and communicate.</p>
 
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Feature 1 -->
-        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-8">
-          <div class="w-12 h-12 bg-brand-600/20 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+          <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
             </svg>
           </div>
           <h3 class="text-xl font-semibold mb-3">Federated</h3>
-          <p class="text-slate-400">Like email, anyone can run a provider. Agents on different providers can message each other seamlessly.</p>
+          <p class="text-slate-600">Like email, anyone can run a provider. Agents on different providers can message each other seamlessly.</p>
         </div>
 
         <!-- Feature 2 -->
-        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-8">
-          <div class="w-12 h-12 bg-purple-600/20 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+          <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
             </svg>
           </div>
           <h3 class="text-xl font-semibold mb-3">Cryptographically Secure</h3>
-          <p class="text-slate-400">Every message is signed with the sender's private key. Recipients verify signatures to prevent impersonation.</p>
+          <p class="text-slate-600">Every message is signed with the sender's private key. Recipients verify signatures to prevent impersonation.</p>
         </div>
 
         <!-- Feature 3 -->
-        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-8">
-          <div class="w-12 h-12 bg-green-600/20 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+          <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
             </svg>
           </div>
           <h3 class="text-xl font-semibold mb-3">Local-First</h3>
-          <p class="text-slate-400">Messages are stored on the agent's machine, not in the cloud. Your data stays yours.</p>
+          <p class="text-slate-600">Messages are stored on the agent's machine, not in the cloud. Your data stays yours.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- How it Works -->
-  <section id="how-it-works" class="py-24 border-t border-slate-800">
+  <section id="how-it-works" class="py-24 border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">How it Works</h2>
-      <p class="text-slate-400 text-center max-w-2xl mx-auto mb-16">Simple addressing, secure delivery, federated routing.</p>
+      <p class="text-slate-600 text-center max-w-2xl mx-auto mb-16">Simple addressing, secure delivery, federated routing.</p>
 
       <!-- Address format -->
-      <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 mb-8">
+      <div class="bg-white border border-slate-200 rounded-2xl p-8 mb-8 shadow-sm">
         <h3 class="text-xl font-semibold mb-6">Agent Addresses</h3>
-        <div class="code-block rounded-xl p-6 font-mono border border-slate-800">
+        <div class="code-block rounded-xl p-6 font-mono">
           <div class="text-lg mb-4">
-            <span class="text-green-400">backend-architect</span><span class="text-slate-500">@</span><span class="text-brand-400">23blocks</span><span class="text-slate-500">.</span><span class="text-purple-400">aimaestro.dev</span>
+            <span class="text-green-400">backend-architect</span><span class="text-slate-500">@</span><span class="text-amber-400">23blocks</span><span class="text-slate-500">.</span><span class="text-purple-400">aimaestro.dev</span>
           </div>
           <div class="grid md:grid-cols-3 gap-4 text-sm">
             <div>
@@ -205,7 +205,7 @@
               <div class="text-slate-500">Unique within tenant</div>
             </div>
             <div>
-              <div class="text-brand-400 font-medium">tenant</div>
+              <div class="text-amber-400 font-medium">tenant</div>
               <div class="text-slate-500">Organization</div>
             </div>
             <div>
@@ -218,70 +218,70 @@
 
       <!-- Delivery methods -->
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
           <div class="text-2xl mb-3">1️⃣</div>
           <h4 class="font-semibold mb-2">WebSocket</h4>
-          <p class="text-sm text-slate-400">Real-time delivery for connected agents. Instant push when online.</p>
+          <p class="text-sm text-slate-600">Real-time delivery for connected agents. Instant push when online.</p>
         </div>
-        <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
           <div class="text-2xl mb-3">2️⃣</div>
           <h4 class="font-semibold mb-2">Webhook</h4>
-          <p class="text-sm text-slate-400">HTTP POST to agent's endpoint. Great for serverless agents.</p>
+          <p class="text-sm text-slate-600">HTTP POST to agent's endpoint. Great for serverless agents.</p>
         </div>
-        <div class="bg-slate-900/50 border border-slate-800 rounded-xl p-6">
+        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
           <div class="text-2xl mb-3">3️⃣</div>
           <h4 class="font-semibold mb-2">Relay Queue</h4>
-          <p class="text-sm text-slate-400">Temporary storage for offline agents. 7-day TTL, pickup when ready.</p>
+          <p class="text-sm text-slate-600">Temporary storage for offline agents. 7-day TTL, pickup when ready.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Specification -->
-  <section class="py-24 border-t border-slate-800">
+  <section class="py-24 bg-slate-50 border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">The Specification</h2>
-      <p class="text-slate-400 text-center max-w-2xl mx-auto mb-16">Everything you need to implement Agent Messaging.</p>
+      <p class="text-slate-600 text-center max-w-2xl mx-auto mb-16">Everything you need to implement Agent Messaging.</p>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/01-introduction.md" class="bg-slate-900/50 border border-slate-800 hover:border-brand-600 rounded-xl p-6 transition-colors group">
-          <div class="text-brand-400 font-mono text-sm mb-2">01</div>
-          <h4 class="font-semibold group-hover:text-brand-400 transition-colors">Introduction</h4>
+        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/01-introduction.md" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-sm mb-2">01</div>
+          <h4 class="font-semibold group-hover:text-slate-900 transition-colors">Introduction</h4>
           <p class="text-sm text-slate-500">Goals & architecture</p>
         </a>
-        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/02-identity.md" class="bg-slate-900/50 border border-slate-800 hover:border-brand-600 rounded-xl p-6 transition-colors group">
-          <div class="text-brand-400 font-mono text-sm mb-2">02</div>
-          <h4 class="font-semibold group-hover:text-brand-400 transition-colors">Identity</h4>
+        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/02-identity.md" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-sm mb-2">02</div>
+          <h4 class="font-semibold group-hover:text-slate-900 transition-colors">Identity</h4>
           <p class="text-sm text-slate-500">Address format</p>
         </a>
-        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/03-registration.md" class="bg-slate-900/50 border border-slate-800 hover:border-brand-600 rounded-xl p-6 transition-colors group">
-          <div class="text-brand-400 font-mono text-sm mb-2">03</div>
-          <h4 class="font-semibold group-hover:text-brand-400 transition-colors">Registration</h4>
+        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/03-registration.md" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-sm mb-2">03</div>
+          <h4 class="font-semibold group-hover:text-slate-900 transition-colors">Registration</h4>
           <p class="text-sm text-slate-500">Agent onboarding</p>
         </a>
-        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/04-messages.md" class="bg-slate-900/50 border border-slate-800 hover:border-brand-600 rounded-xl p-6 transition-colors group">
-          <div class="text-brand-400 font-mono text-sm mb-2">04</div>
-          <h4 class="font-semibold group-hover:text-brand-400 transition-colors">Messages</h4>
+        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/04-messages.md" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-sm mb-2">04</div>
+          <h4 class="font-semibold group-hover:text-slate-900 transition-colors">Messages</h4>
           <p class="text-sm text-slate-500">Format & signing</p>
         </a>
-        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/05-routing.md" class="bg-slate-900/50 border border-slate-800 hover:border-brand-600 rounded-xl p-6 transition-colors group">
-          <div class="text-brand-400 font-mono text-sm mb-2">05</div>
-          <h4 class="font-semibold group-hover:text-brand-400 transition-colors">Routing</h4>
+        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/05-routing.md" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-sm mb-2">05</div>
+          <h4 class="font-semibold group-hover:text-slate-900 transition-colors">Routing</h4>
           <p class="text-sm text-slate-500">Delivery methods</p>
         </a>
-        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/06-federation.md" class="bg-slate-900/50 border border-slate-800 hover:border-brand-600 rounded-xl p-6 transition-colors group">
-          <div class="text-brand-400 font-mono text-sm mb-2">06</div>
-          <h4 class="font-semibold group-hover:text-brand-400 transition-colors">Federation</h4>
+        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/06-federation.md" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-sm mb-2">06</div>
+          <h4 class="font-semibold group-hover:text-slate-900 transition-colors">Federation</h4>
           <p class="text-sm text-slate-500">Cross-provider</p>
         </a>
-        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/07-security.md" class="bg-slate-900/50 border border-slate-800 hover:border-brand-600 rounded-xl p-6 transition-colors group">
-          <div class="text-brand-400 font-mono text-sm mb-2">07</div>
-          <h4 class="font-semibold group-hover:text-brand-400 transition-colors">Security</h4>
+        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/07-security.md" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-sm mb-2">07</div>
+          <h4 class="font-semibold group-hover:text-slate-900 transition-colors">Security</h4>
           <p class="text-sm text-slate-500">Crypto & threats</p>
         </a>
-        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/08-api.md" class="bg-slate-900/50 border border-slate-800 hover:border-brand-600 rounded-xl p-6 transition-colors group">
-          <div class="text-brand-400 font-mono text-sm mb-2">08</div>
-          <h4 class="font-semibold group-hover:text-brand-400 transition-colors">API</h4>
+        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/08-api.md" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-sm mb-2">08</div>
+          <h4 class="font-semibold group-hover:text-slate-900 transition-colors">API</h4>
           <p class="text-sm text-slate-500">REST & WebSocket</p>
         </a>
       </div>
@@ -289,16 +289,16 @@
   </section>
 
   <!-- CTA -->
-  <section class="py-24 border-t border-slate-800">
+  <section class="py-24 border-t border-slate-200">
     <div class="max-w-3xl mx-auto px-6 text-center">
       <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to get started?</h2>
-      <p class="text-slate-400 mb-8">Read the specification, try the reference implementation, or contribute to the protocol.</p>
+      <p class="text-slate-600 mb-8">Read the specification, try the reference implementation, or contribute to the protocol.</p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="https://github.com/agentmessaging/protocol" class="bg-brand-600 hover:bg-brand-500 px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center gap-2">
+        <a href="https://github.com/agentmessaging/protocol" class="bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center gap-2">
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           View on GitHub
         </a>
-        <a href="https://github.com/agentmessaging/protocol/discussions" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-6 py-3 rounded-lg font-medium transition-colors">
+        <a href="https://github.com/agentmessaging/protocol/discussions" class="bg-white hover:bg-slate-50 border border-slate-300 px-6 py-3 rounded-lg font-medium transition-colors">
           Join the Discussion
         </a>
       </div>
@@ -306,17 +306,17 @@
   </section>
 
   <!-- Footer -->
-  <footer class="border-t border-slate-800 py-12">
+  <footer class="bg-slate-50 border-t border-slate-200 py-12">
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="flex items-center gap-2 text-slate-400">
+        <div class="flex items-center gap-2 text-slate-600">
           <span class="text-xl">📨</span>
           <span>Agent Messaging Protocol</span>
         </div>
         <div class="flex items-center gap-6 text-sm text-slate-500">
-          <a href="https://github.com/agentmessaging" class="hover:text-slate-300 transition-colors">GitHub</a>
-          <a href="https://github.com/agentmessaging/protocol/blob/main/LICENSE" class="hover:text-slate-300 transition-colors">Apache 2.0</a>
-          <span>Maintained by <a href="https://23blocks.com" class="text-slate-400 hover:text-white transition-colors">23blocks</a></span>
+          <a href="https://github.com/agentmessaging" class="hover:text-slate-900 transition-colors">GitHub</a>
+          <a href="https://github.com/agentmessaging/protocol/blob/main/LICENSE" class="hover:text-slate-900 transition-colors">Apache 2.0</a>
+          <span>Maintained by <a href="https://23blocks.com" class="text-slate-700 hover:text-slate-900 transition-colors">23blocks</a></span>
         </div>
       </div>
     </div>
