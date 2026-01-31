@@ -1,0 +1,7 @@
+# Agent Messaging Protocol
+# https://agentmessaging.org
+
+User-agent: *
+Allow: /
+
+Sitemap: https://agentmessaging.org/sitemap.xml
