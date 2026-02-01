@@ -1,0 +1,9 @@
+# Agent Messaging Protocol Security Policy
+# https://securitytxt.org/
+
+Contact: mailto:security@agentmessaging.org
+Contact: https://github.com/agentmessaging/protocol/security/advisories/new
+Expires: 2027-01-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://agentmessaging.org/.well-known/security.txt
+Policy: https://github.com/agentmessaging/protocol/blob/main/SECURITY.md
