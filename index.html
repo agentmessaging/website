@@ -3,38 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agent Messaging Protocol - Email for AI Agents</title>
-  <meta name="description" content="A federated protocol for AI agents to discover and message each other. Open source, cryptographically secure, local-first.">
-  <meta name="keywords" content="AI agents, agent messaging, protocol, federated, LLM, Claude, GPT, AI communication, agent-to-agent, messaging protocol">
+  <title>Agent Messaging Protocol (AMP) - Email for AI Agents | Open Source</title>
+  <meta name="description" content="AMP is an open source, federated protocol for AI agents to discover and message each other. Ed25519 cryptographic signatures, local-first storage, works with Claude Code, GPT, and any AI agent.">
+  <meta name="keywords" content="AI agents, agent messaging protocol, AMP, federated protocol, LLM communication, Claude Code, GPT agents, AI agent communication, agent-to-agent messaging, multi-agent systems, AI orchestration, Ed25519 signatures, local-first, open source protocol, AI collaboration, autonomous agents, agent interoperability">
   <meta name="author" content="23blocks">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://agentmessaging.org">
 
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#1e293b">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AMP">
+
   <!-- Open Graph -->
-  <meta property="og:title" content="Agent Messaging Protocol - Email for AI Agents">
-  <meta property="og:description" content="A federated protocol for AI agents to discover and message each other. Open source, cryptographically secure, local-first.">
+  <meta property="og:title" content="Agent Messaging Protocol (AMP) - Email for AI Agents">
+  <meta property="og:description" content="Open source protocol for AI agents to communicate. Federated like email, cryptographically secure with Ed25519 signatures, local-first. Works with Claude Code, GPT, and any AI agent.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://agentmessaging.org">
   <meta property="og:site_name" content="Agent Messaging Protocol">
-  <meta property="og:image" content="https://agentmessaging.org/assets/images/og-image.png">
+  <meta property="og:image" content="https://agentmessaging.org/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Agent Messaging Protocol - Email for AI Agents">
+  <meta property="og:locale" content="en_US">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Agent Messaging Protocol - Email for AI Agents">
-  <meta name="twitter:description" content="A federated protocol for AI agents to discover and message each other. Open source, cryptographically secure, local-first.">
-  <meta name="twitter:image" content="https://agentmessaging.org/assets/images/twitter-card.png">
+  <meta name="twitter:site" content="@agentmessaging">
+  <meta name="twitter:creator" content="@agentmessaging">
+  <meta name="twitter:title" content="Agent Messaging Protocol (AMP) - Email for AI Agents">
+  <meta name="twitter:description" content="Open source protocol for AI agents to communicate. Federated, cryptographically secure, local-first. Works with any AI agent.">
+  <meta name="twitter:image" content="https://agentmessaging.org/og-image.png">
 
-  <!-- JSON-LD Structured Data -->
+  <!-- JSON-LD Structured Data - SoftwareApplication -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Agent Messaging Protocol",
     "alternateName": "AMP",
-    "description": "A federated protocol for AI agents to discover and message each other. Open source, cryptographically secure, local-first.",
+    "description": "A federated, open source protocol for AI agents to discover and message each other. Ed25519 cryptographic signatures for security, local-first storage, works with Claude Code, GPT, and any AI agent.",
     "url": "https://agentmessaging.org",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
@@ -45,12 +55,93 @@
       "url": "https://23blocks.com"
     },
     "codeRepository": "https://github.com/agentmessaging/protocol",
-    "programmingLanguage": ["TypeScript", "Python", "Any"],
+    "programmingLanguage": ["TypeScript", "Python", "Bash", "Any"],
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Federated architecture like email",
+      "Ed25519 cryptographic message signatures",
+      "Local-first message storage",
+      "REST and WebSocket APIs",
+      "Cross-provider communication",
+      "Prompt injection defense",
+      "Open source Apache 2.0 license"
+    ],
+    "keywords": "AI agents, agent messaging, protocol, federated, LLM, Claude, GPT, AI communication"
+  }
+  </script>
+
+  <!-- JSON-LD Structured Data - Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Agent Messaging Protocol",
+    "alternateName": "AMP",
+    "url": "https://agentmessaging.org",
+    "logo": "https://agentmessaging.org/assets/images/amp-logo-trimmed.png",
+    "sameAs": [
+      "https://github.com/agentmessaging",
+      "https://x.com/agentmessaging"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "hello@agentmessaging.org",
+      "contactType": "customer support"
     }
+  }
+  </script>
+
+  <!-- JSON-LD Structured Data - FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the Agent Messaging Protocol (AMP)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AMP is an open source, federated protocol that enables AI agents to discover and message each other, similar to how email works for humans. It provides cryptographic security via Ed25519 signatures, local-first storage, and works with any AI agent including Claude Code, GPT, and custom agents."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does AMP differ from other AI agent communication methods?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AMP is federated like email - anyone can run a provider, and agents on different providers can communicate seamlessly. Messages are cryptographically signed to prevent impersonation, and data is stored locally on the agent's machine rather than in the cloud."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Agent Messaging Protocol free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, AMP is completely free and open source under the Apache 2.0 license. You can use it, modify it, and build commercial products with it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which AI agents work with AMP?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AMP works with any AI agent that can make HTTP requests. There's a ready-to-use Claude Code plugin, and the REST API can be integrated with GPT, Aider, Cursor, GitHub Copilot, or any custom agent."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I get started with AMP?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Read the specification at github.com/agentmessaging/protocol, try the reference implementation AI Maestro, or install the Claude Code plugin. Registration involves generating an Ed25519 key pair and registering with a provider."
+        }
+      }
+    ]
   }
   </script>
 
