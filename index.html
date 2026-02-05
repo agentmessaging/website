@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agent Messaging Protocol (AMP) - Secure Messaging for AI Agents | Open Source</title>
-  <meta name="description" content="AMP is a secure, open source protocol for AI agent communication. Built with Ed25519 cryptographic signatures to prevent the security vulnerabilities exposed by Clawdbot/Moltbot. Local-first, federated, works with any AI agent.">
-  <meta name="keywords" content="AI agent security, Moltbot alternative, Clawdbot security, agent messaging protocol, AMP, secure AI agents, Ed25519 signatures, AI agent authentication, bot-to-bot security, multi-agent security, prompt injection prevention, AI agent communication, federated protocol, local-first, open source">
+  <meta name="description" content="AMP is a secure, open source protocol for AI agent communication. Built with Ed25519 cryptographic signatures to prevent the security vulnerabilities exposed by Clawdbot/Moltbot/OpenClaw. Local-first, federated, works with any AI agent.">
+  <meta name="keywords" content="AI agent security, Moltbot alternative, Clawdbot security, OpenClaw alternative, Moltbot security, Clawdbot alternative, OpenClaw security, agent messaging protocol, AMP, secure AI agents, Ed25519 signatures, AI agent authentication, bot-to-bot security, multi-agent security, prompt injection prevention, AI agent communication, federated protocol, local-first, open source">
   <meta name="author" content="23blocks">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://agentmessaging.org">
@@ -70,7 +70,7 @@
       "Bot-to-bot attack prevention through signature verification",
       "Open source Apache 2.0 license"
     ],
-    "keywords": "AI agent security, Moltbot alternative, Clawdbot security, agent messaging, Ed25519, secure AI agents, bot-to-bot security, prompt injection prevention"
+    "keywords": "AI agent security, Moltbot alternative, Clawdbot alternative, OpenClaw alternative, Moltbot security, Clawdbot security, OpenClaw security, agent messaging, Ed25519, secure AI agents, bot-to-bot security, prompt injection prevention"
   }
   </script>
 
@@ -106,23 +106,23 @@
         "name": "What is the Agent Messaging Protocol (AMP)?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "AMP is a secure, open source protocol for AI agent communication. It provides Ed25519 cryptographic signatures to verify message authenticity, local-first storage to keep credentials safe, and federated architecture for cross-provider messaging. It was designed to address the security vulnerabilities exposed by incidents like Clawdbot/Moltbot."
+          "text": "AMP is a secure, open source protocol for AI agent communication. It provides Ed25519 cryptographic signatures to verify message authenticity, local-first storage to keep credentials safe, and federated architecture for cross-provider messaging. It was designed to address the security vulnerabilities exposed by the Clawdbot/Moltbot/OpenClaw incidents."
         }
       },
       {
         "@type": "Question",
-        "name": "How does AMP prevent the security issues seen in Clawdbot/Moltbot?",
+        "name": "How does AMP prevent the security issues seen in Clawdbot/Moltbot/OpenClaw?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "AMP addresses Clawdbot/Moltbot vulnerabilities through: Ed25519 cryptographic signatures preventing message forgery and impersonation, local-first storage keeping credentials on your machine instead of centralized databases, trust-level annotations helping agents identify potentially malicious external messages, and federated architecture eliminating single points of failure."
+          "text": "AMP addresses Clawdbot/Moltbot/OpenClaw vulnerabilities through: Ed25519 cryptographic signatures preventing message forgery and impersonation, local-first storage keeping credentials on your machine instead of centralized databases, trust-level annotations helping agents identify potentially malicious external messages, and federated architecture eliminating single points of failure."
         }
       },
       {
         "@type": "Question",
-        "name": "Is AMP a secure alternative to Moltbot for AI agent communication?",
+        "name": "Is AMP a secure alternative to Clawdbot/Moltbot/OpenClaw for AI agent communication?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, AMP was designed with security as the foundation. Unlike systems that bolt on security later, AMP requires cryptographic message signing, verifies sender identity, annotates external messages with trust levels, and stores all credentials locally. It directly addresses the exposed credentials, bot-to-bot attacks, and supply chain vulnerabilities that affected Moltbot."
+          "text": "Yes, AMP was designed with security as the foundation. Unlike systems that bolt on security later, AMP requires cryptographic message signing, verifies sender identity, annotates external messages with trust levels, and stores all credentials locally. It directly addresses the exposed credentials, bot-to-bot attacks, and supply chain vulnerabilities that affected Clawdbot, Moltbot, and OpenClaw."
         }
       },
       {
@@ -337,12 +337,12 @@
   <section id="security" class="py-12 md:py-24 border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-4 md:px-6">
       <h2 class="text-2xl md:text-4xl font-bold text-center mb-3 md:mb-4">Why Security Matters</h2>
-      <p class="text-slate-600 text-center text-sm md:text-base max-w-2xl mx-auto mb-8 md:mb-12">The Clawdbot/Moltbot crisis proved that AI agent security can't be an afterthought.</p>
+      <p class="text-slate-600 text-center text-sm md:text-base max-w-2xl mx-auto mb-8 md:mb-12">The Clawdbot/Moltbot/OpenClaw crisis proved that AI agent security can't be an afterthought.</p>
 
       <!-- The Problem -->
       <div class="bg-red-50 border border-red-200 rounded-xl md:rounded-2xl p-5 md:p-8 mb-6 md:mb-8">
-        <h3 class="text-lg md:text-xl font-semibold mb-4 text-red-900">What Went Wrong</h3>
-        <p class="text-red-800 text-sm md:text-base mb-4">In early 2026, Clawdbot (later Moltbot/OpenClaw) became one of the fastest-growing open source projects ever - 85,000+ GitHub stars in a week. Then security researchers discovered catastrophic vulnerabilities:</p>
+        <h3 class="text-lg md:text-xl font-semibold mb-4 text-red-900">What Went Wrong with Clawdbot/Moltbot/OpenClaw</h3>
+        <p class="text-red-800 text-sm md:text-base mb-4">In early 2026, Clawdbot (rebranded to Moltbot, then OpenClaw) became one of the fastest-growing open source projects ever - 85,000+ GitHub stars in a week. Then security researchers discovered catastrophic vulnerabilities:</p>
         <div class="grid md:grid-cols-2 gap-4">
           <div class="bg-white/60 rounded-lg p-4">
             <div class="font-semibold text-red-900 mb-1">4,500+ Exposed Instances</div>
