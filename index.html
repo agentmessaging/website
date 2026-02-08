@@ -55,7 +55,7 @@
       "url": "https://23blocks.com"
     },
     "codeRepository": "https://github.com/agentmessaging/protocol",
-    "programmingLanguage": ["TypeScript", "Python", "Bash", "Any"],
+    "programmingLanguage": ["Bash", "Any"],
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -240,7 +240,7 @@
       <div class="max-w-3xl">
         <div class="inline-flex items-center gap-2 bg-slate-100 border border-slate-300 rounded-full px-3 py-1 text-xs md:text-sm text-slate-700 mb-4 md:mb-6">
           <span class="w-1.5 h-1.5 md:w-2 md:h-2 bg-slate-500 rounded-full animate-pulse"></span>
-          v0.1.0-draft now available
+          v0.1.2-draft now available
         </div>
 
         <h1 class="text-3xl md:text-5xl lg:text-7xl font-bold leading-tight mb-4 md:mb-6">
@@ -279,12 +279,17 @@
             <span class="text-green-400">"Code review request"</span><span class="text-slate-500">,</span>
           </div>
           <div class="pl-2 md:pl-4">
-            <span class="text-amber-400">"payload"</span><span class="text-slate-500">:</span>
-            <span class="text-slate-500">{</span>
+            <span class="text-amber-400">"payload"</span><span class="text-slate-500">: {</span>
+          </div>
+          <div class="pl-4 md:pl-8">
+            <span class="text-amber-400">"type"</span><span class="text-slate-500">:</span>
+            <span class="text-green-400">"request"</span><span class="text-slate-500">,</span>
+          </div>
+          <div class="pl-4 md:pl-8">
             <span class="text-amber-400">"message"</span><span class="text-slate-500">:</span>
             <span class="text-green-400">"Review PR #42?"</span>
-            <span class="text-slate-500">}</span>
           </div>
+          <div class="pl-2 md:pl-4"><span class="text-slate-500">}</span></div>
           <div class="text-slate-500">}</div>
         </div>
       </div>
@@ -432,7 +437,7 @@
       </div>
 
       <!-- Delivery methods -->
-      <div class="grid gap-3 md:grid-cols-3 md:gap-6">
+      <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-4 md:gap-6">
         <div class="bg-white border border-slate-200 rounded-lg md:rounded-xl p-4 md:p-6 shadow-sm">
           <div class="text-xl md:text-2xl mb-2 md:mb-3">1️⃣</div>
           <h4 class="font-semibold mb-1 md:mb-2 text-sm md:text-base">WebSocket</h4>
@@ -445,8 +450,13 @@
         </div>
         <div class="bg-white border border-slate-200 rounded-lg md:rounded-xl p-4 md:p-6 shadow-sm">
           <div class="text-xl md:text-2xl mb-2 md:mb-3">3️⃣</div>
-          <h4 class="font-semibold mb-1 md:mb-2 text-sm md:text-base">Relay Queue</h4>
-          <p class="text-xs md:text-sm text-slate-600">Temporary storage for offline agents. 7-day TTL, pickup when ready.</p>
+          <h4 class="font-semibold mb-1 md:mb-2 text-sm md:text-base">Relay</h4>
+          <p class="text-xs md:text-sm text-slate-600">Queue for offline agents. 7-day TTL, pickup when ready.</p>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg md:rounded-xl p-4 md:p-6 shadow-sm">
+          <div class="text-xl md:text-2xl mb-2 md:mb-3">4️⃣</div>
+          <h4 class="font-semibold mb-1 md:mb-2 text-sm md:text-base">Mesh</h4>
+          <p class="text-xs md:text-sm text-slate-600">Local network routing between hosts. No internet required.</p>
         </div>
       </div>
     </div>
@@ -489,6 +499,11 @@
           <h4 class="font-semibold text-sm md:text-base group-hover:text-slate-900 transition-colors">Federation</h4>
           <p class="text-xs md:text-sm text-slate-500 hidden md:block">Cross-provider</p>
         </a>
+        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/06a-local-networks.md" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-lg md:rounded-xl p-3 md:p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-xs md:text-sm mb-1 md:mb-2">06a</div>
+          <h4 class="font-semibold text-sm md:text-base group-hover:text-slate-900 transition-colors">Local Networks</h4>
+          <p class="text-xs md:text-sm text-slate-500 hidden md:block">Mesh routing</p>
+        </a>
         <a href="https://github.com/agentmessaging/protocol/blob/main/spec/07-security.md" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-lg md:rounded-xl p-3 md:p-6 transition-all group">
           <div class="text-slate-500 font-mono text-xs md:text-sm mb-1 md:mb-2">07</div>
           <h4 class="font-semibold text-sm md:text-base group-hover:text-slate-900 transition-colors">Security</h4>
@@ -499,6 +514,16 @@
           <h4 class="font-semibold text-sm md:text-base group-hover:text-slate-900 transition-colors">API</h4>
           <p class="text-xs md:text-sm text-slate-500 hidden md:block">REST & WebSocket</p>
         </a>
+        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/09-external-agents.md" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-lg md:rounded-xl p-3 md:p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-xs md:text-sm mb-1 md:mb-2">09</div>
+          <h4 class="font-semibold text-sm md:text-base group-hover:text-slate-900 transition-colors">External Agents</h4>
+          <p class="text-xs md:text-sm text-slate-500 hidden md:block">Integration guide</p>
+        </a>
+        <a href="https://github.com/agentmessaging/protocol/blob/main/spec/appendix-a-injection-patterns.md" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-lg md:rounded-xl p-3 md:p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-xs md:text-sm mb-1 md:mb-2">A</div>
+          <h4 class="font-semibold text-sm md:text-base group-hover:text-slate-900 transition-colors">Appendix</h4>
+          <p class="text-xs md:text-sm text-slate-500 hidden md:block">Injection patterns</p>
+        </a>
       </div>
     </div>
   </section>
@@ -507,7 +532,7 @@
   <section class="py-12 md:py-24 border-t border-slate-200">
     <div class="max-w-3xl mx-auto px-4 md:px-6 text-center">
       <h2 class="text-2xl md:text-4xl font-bold mb-4 md:mb-6">Ready to get started?</h2>
-      <p class="text-slate-600 text-sm md:text-base mb-6 md:mb-8">Read the specification, try the reference implementation, or contribute to the protocol.</p>
+      <p class="text-slate-600 text-sm md:text-base mb-6 md:mb-8">Read the specification, try the Claude Code plugin, or contribute to the protocol.</p>
       <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4">
         <a href="https://github.com/agentmessaging/protocol" class="bg-slate-900 hover:bg-slate-800 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2 text-sm md:text-base">
           <svg class="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
