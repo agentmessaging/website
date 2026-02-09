@@ -35,7 +35,7 @@
   <meta name="twitter:creator" content="@agentmessaging">
   <meta name="twitter:title" content="Agent Messaging Protocol (AMP) - Secure Messaging for AI Agents">
   <meta name="twitter:description" content="Open source protocol for AI agents to communicate. Federated, cryptographically secure, local-first. Works with any AI agent.">
-  <meta name="twitter:image" content="https://agentmessaging.org/og-image.png">
+  <meta name="twitter:image" content="https://agentmessaging.org/assets/images/twitter-card.png">
 
   <!-- JSON-LD Structured Data - SoftwareApplication -->
   <script type="application/ld+json">
@@ -67,8 +67,8 @@
       "Trust-level annotations for prompt injection defense",
       "Federated architecture with no central point of failure",
       "Real-time WebSocket, webhook, and polling delivery modes",
-      "Bot-to-bot attack prevention through signature verification",
-      "File attachments with SHA-256 digest verification and malware scanning support",
+      "Bot-to-bot attack prevention through cryptographic signatures",
+      "File attachments with SHA-256 digest verification and security scanning framework",
       "Open source Apache 2.0 license"
     ],
     "keywords": "AI agent security, Moltbot alternative, Clawdbot alternative, OpenClaw alternative, Moltbot security, Clawdbot security, OpenClaw security, agent messaging, Ed25519, secure AI agents, bot-to-bot security, prompt injection prevention"
@@ -107,7 +107,7 @@
         "name": "What is the Agent Messaging Protocol (AMP)?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "AMP is a secure, open source protocol for AI agent communication. It provides Ed25519 cryptographic signatures to verify message authenticity, local-first storage to keep credentials safe, and federated architecture for cross-provider messaging. It was designed to address the security vulnerabilities exposed by the Clawdbot/Moltbot/OpenClaw incidents."
+          "text": "AMP is a secure, open source protocol for AI agent communication. It provides Ed25519 cryptographic signatures to verify message authenticity, local-first storage to keep credentials safe, and federated architecture for cross-provider messaging. It addresses the security vulnerabilities exposed by the Clawdbot/Moltbot/OpenClaw incidents."
         }
       },
       {
@@ -211,6 +211,7 @@
   </style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded focus:shadow-lg">Skip to content</a>
 
   <!-- Navigation -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200">
@@ -234,6 +235,7 @@
     </div>
   </nav>
 
+  <main id="main-content">
   <!-- Hero -->
   <section class="hero-gradient pt-20 md:pt-24 pb-12 md:pb-20">
     <div class="max-w-6xl mx-auto px-4 md:px-6">
@@ -264,24 +266,36 @@
 
         <!-- Code example -->
         <div class="code-block rounded-lg md:rounded-xl p-3 md:p-6 font-mono text-xs md:text-sm overflow-x-auto shadow-xl">
-          <div class="text-slate-500 mb-2"># Send a message to any agent, anywhere</div>
-          <div class="text-slate-300">
-            <span class="text-purple-400">POST</span>
-            <span class="text-slate-500">/v1/route</span>
-          </div>
-          <div class="text-slate-500 mt-2 md:mt-3">{</div>
+          <div class="text-slate-500 mb-2"># AMP message envelope</div>
+          <div class="text-slate-500">{</div>
           <div class="pl-2 md:pl-4">
+            <span class="text-amber-400">"envelope"</span><span class="text-slate-500">: {</span>
+          </div>
+          <div class="pl-4 md:pl-8">
+            <span class="text-amber-400">"version"</span><span class="text-slate-500">:</span>
+            <span class="text-green-400">"AMP/0.1"</span><span class="text-slate-500">,</span>
+          </div>
+          <div class="pl-4 md:pl-8">
+            <span class="text-amber-400">"from"</span><span class="text-slate-500">:</span>
+            <span class="text-green-400">"alice@acme.provider.com"</span><span class="text-slate-500">,</span>
+          </div>
+          <div class="pl-4 md:pl-8">
             <span class="text-amber-400">"to"</span><span class="text-slate-500">:</span>
-            <span class="text-green-400">"agent@tenant.provider"</span><span class="text-slate-500">,</span>
+            <span class="text-green-400">"bob@acme.provider.com"</span><span class="text-slate-500">,</span>
           </div>
-          <div class="pl-2 md:pl-4">
+          <div class="pl-4 md:pl-8">
             <span class="text-amber-400">"subject"</span><span class="text-slate-500">:</span>
             <span class="text-green-400">"Code review request"</span><span class="text-slate-500">,</span>
           </div>
-          <div class="pl-2 md:pl-4">
-            <span class="text-amber-400">"signature"</span><span class="text-slate-500">:</span>
-            <span class="text-green-400">"Ed25519..."</span><span class="text-slate-500">,</span>
+          <div class="pl-4 md:pl-8">
+            <span class="text-amber-400">"priority"</span><span class="text-slate-500">:</span>
+            <span class="text-green-400">"normal"</span><span class="text-slate-500">,</span>
           </div>
+          <div class="pl-4 md:pl-8">
+            <span class="text-amber-400">"signature"</span><span class="text-slate-500">:</span>
+            <span class="text-green-400">"Ed25519:abc123..."</span>
+          </div>
+          <div class="pl-2 md:pl-4"><span class="text-slate-500">},</span></div>
           <div class="pl-2 md:pl-4">
             <span class="text-amber-400">"payload"</span><span class="text-slate-500">: {</span>
           </div>
@@ -326,7 +340,7 @@
             </svg>
           </div>
           <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3">Cryptographically Secure</h3>
-          <p class="text-slate-600 text-sm md:text-base">Every message is signed with the sender's private key. Recipients verify signatures to prevent impersonation.</p>
+          <p class="text-slate-600 text-sm md:text-base">Every message is signed with the sender's private key. Cryptographic signatures enable sender authentication and prevent impersonation.</p>
         </div>
 
         <!-- Feature 3 -->
@@ -348,7 +362,7 @@
             </svg>
           </div>
           <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3 group-hover:text-slate-900">File Attachments</h3>
-          <p class="text-slate-600 text-sm md:text-base">Share files between agents with digest-verified attachments, MIME validation, and provider-side malware scanning support.</p>
+          <p class="text-slate-600 text-sm md:text-base">Share files between agents with digest-verified attachments, MIME validation, and a provider-side security scanning framework.</p>
         </a>
       </div>
     </div>
@@ -391,7 +405,7 @@
         <div class="grid md:grid-cols-2 gap-4">
           <div class="bg-white/60 rounded-lg p-4">
             <div class="font-semibold text-green-900 mb-1">Ed25519 Signatures</div>
-            <p class="text-sm text-green-700">Every message is cryptographically signed - no impersonation possible</p>
+            <p class="text-sm text-green-700">Every message is cryptographically signed - the protocol requires signatures for sender authentication</p>
           </div>
           <div class="bg-white/60 rounded-lg p-4">
             <div class="font-semibold text-green-900 mb-1">Trust Annotations</div>
@@ -430,7 +444,7 @@
             </div>
             <div>
               <div class="text-amber-400 font-medium">tenant</div>
-              <div class="text-slate-500">Organization</div>
+              <div class="text-slate-500">Organization (supports multi-level scoping)</div>
             </div>
             <div>
               <div class="text-purple-400 font-medium">provider</div>
@@ -455,12 +469,12 @@
         <div class="bg-white border border-slate-200 rounded-lg md:rounded-xl p-4 md:p-6 shadow-sm">
           <div class="text-xl md:text-2xl mb-2 md:mb-3">3️⃣</div>
           <h4 class="font-semibold mb-1 md:mb-2 text-sm md:text-base">Relay</h4>
-          <p class="text-xs md:text-sm text-slate-600">Queue for offline agents. 7-day TTL, pickup when ready.</p>
+          <p class="text-xs md:text-sm text-slate-600">Queue for offline agents. 7-day default TTL, pickup when ready.</p>
         </div>
         <div class="bg-white border border-slate-200 rounded-lg md:rounded-xl p-4 md:p-6 shadow-sm">
           <div class="text-xl md:text-2xl mb-2 md:mb-3">4️⃣</div>
           <h4 class="font-semibold mb-1 md:mb-2 text-sm md:text-base">Mesh</h4>
-          <p class="text-xs md:text-sm text-slate-600">Local network routing between hosts. No internet required.</p>
+          <p class="text-xs md:text-sm text-slate-600">Local network routing via host-to-host forwarding. No internet required.</p>
         </div>
       </div>
     </div>
@@ -548,6 +562,7 @@
       </div>
     </div>
   </section>
+  </main>
 
   <!-- Footer -->
   <footer class="bg-slate-50 border-t border-slate-200 py-6 md:py-8">
