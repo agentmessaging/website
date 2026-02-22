@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Agent Messaging Protocol Blog</title>
+    <description>Protocol insights, comparisons, and the future of AI agent communication.</description>
+    <link>https://agentmessaging.org/blog/</link>
+    <atom:link href="https://agentmessaging.org/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 21 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <managingEditor>hello@agentmessaging.org (23blocks)</managingEditor>
+    <webMaster>hello@agentmessaging.org (23blocks)</webMaster>
+    <item>
+      <title>The Agent Communication Landscape: AMP vs A2A vs MCP Agent Mail</title>
+      <link>https://agentmessaging.org/blog/agent-communication-landscape/</link>
+      <guid isPermaLink="true">https://agentmessaging.org/blog/agent-communication-landscape/</guid>
+      <description>A detailed comparison of three emerging approaches to AI agent communication. They solve different problems, sit at different layers, and complement each other.</description>
+      <pubDate>Fri, 21 Feb 2026 00:00:00 +0000</pubDate>
+      <category>Comparison</category>
+      <category>Protocol Design</category>
+    </item>
+  </channel>
+</rss>

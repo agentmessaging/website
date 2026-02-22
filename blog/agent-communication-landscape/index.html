@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Agent Communication Landscape: AMP vs A2A vs MCP Agent Mail - Agent Messaging Protocol</title>
+  <meta name="description" content="A detailed comparison of AMP, Google's A2A, and MCP Agent Mail. Three protocols solving different problems at different layers of AI agent communication.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://agentmessaging.org/blog/agent-communication-landscape/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="The Agent Communication Landscape: AMP vs A2A vs MCP Agent Mail">
+  <meta property="og:description" content="A detailed comparison of three emerging approaches to AI agent communication. They solve different problems, sit at different layers, and complement each other.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://agentmessaging.org/blog/agent-communication-landscape/">
+  <meta property="og:site_name" content="Agent Messaging Protocol">
+  <meta property="og:image" content="https://agentmessaging.org/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="article:published_time" content="2026-02-21T00:00:00Z">
+  <meta property="article:author" content="23blocks">
+  <meta property="article:section" content="Protocol Design">
+  <meta property="article:tag" content="AMP">
+  <meta property="article:tag" content="A2A">
+  <meta property="article:tag" content="MCP Agent Mail">
+  <meta property="article:tag" content="Protocol Comparison">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@agentmessaging">
+  <meta name="twitter:creator" content="@agentmessaging">
+  <meta name="twitter:title" content="The Agent Communication Landscape: AMP vs A2A vs MCP Agent Mail">
+  <meta name="twitter:description" content="Three protocols, three layers, three different problems. A detailed comparison of the emerging AI agent communication stack.">
+  <meta name="twitter:image" content="https://agentmessaging.org/og-image.png">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "The Agent Communication Landscape: AMP vs A2A vs MCP Agent Mail",
+    "description": "A detailed comparison of three emerging approaches to AI agent communication. They solve different problems, sit at different layers, and complement each other.",
+    "datePublished": "2026-02-21T00:00:00Z",
+    "dateModified": "2026-02-21T00:00:00Z",
+    "author": {
+      "@type": "Organization",
+      "name": "23blocks",
+      "url": "https://23blocks.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Agent Messaging Protocol",
+      "url": "https://agentmessaging.org",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agentmessaging.org/assets/images/amp-logo-trimmed.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://agentmessaging.org/blog/agent-communication-landscape/"
+    },
+    "image": "https://agentmessaging.org/og-image.png",
+    "keywords": ["AMP", "A2A", "MCP Agent Mail", "AI agent communication", "protocol comparison", "agent messaging"],
+    "articleSection": "Protocol Design",
+    "wordCount": 2400
+  }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="AMP Blog" href="/blog/feed.xml">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Space Grotesk', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .code-block {
+      background: #1e293b;
+    }
+    article h2 { scroll-margin-top: 5rem; }
+  </style>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded focus:shadow-lg">Skip to content</a>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 md:px-6 py-3">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 text-base md:text-xl font-semibold">
+          <img src="/assets/images/amp-logo-trimmed.png" alt="{AMP}" style="height: 24px;">
+          <span class="hidden sm:inline">Agent Messaging</span>
+          <span class="sm:hidden">AMP</span>
+        </a>
+        <div class="flex items-center gap-3 md:gap-6">
+          <a href="/#features" class="hidden md:block text-slate-900 hover:text-slate-600 transition-colors">Features</a>
+          <a href="/#security" class="hidden md:block text-slate-900 hover:text-slate-600 transition-colors">Security</a>
+          <a href="/#how-it-works" class="hidden md:block text-slate-900 hover:text-slate-600 transition-colors">How it Works</a>
+          <a href="https://github.com/agentmessaging/protocol" class="hidden sm:block text-slate-900 hover:text-slate-600 transition-colors text-sm md:text-base">Spec</a>
+          <a href="/blog/" class="text-slate-900 hover:text-slate-600 transition-colors text-sm md:text-base font-medium">Blog</a>
+          <a href="https://github.com/agentmessaging/protocol" class="text-slate-900 hover:text-slate-600 transition-colors">
+            <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <article class="pt-20 md:pt-24 pb-16 md:pb-24">
+      <div class="max-w-4xl mx-auto px-4 md:px-6">
+
+        <!-- Article Header -->
+        <header class="mb-8 md:mb-12">
+          <div class="mb-4">
+            <a href="/blog/" class="text-sm text-slate-500 hover:text-slate-700 transition-colors inline-flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+              Back to Blog
+            </a>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-slate-100 text-slate-600 text-xs font-medium px-2.5 py-0.5 rounded-full">Comparison</span>
+            <span class="bg-slate-100 text-slate-600 text-xs font-medium px-2.5 py-0.5 rounded-full">Protocol Design</span>
+          </div>
+          <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-4 md:mb-6">
+            The Agent Communication Landscape: AMP vs A2A vs MCP Agent Mail
+          </h1>
+          <p class="text-base md:text-xl text-slate-600 mb-4 md:mb-6 leading-relaxed">
+            Three protocols are emerging for AI agent communication. They solve different problems, sit at different layers, and may actually complement each other.
+          </p>
+          <div class="flex items-center gap-3 text-sm text-slate-500 border-b border-slate-200 pb-6">
+            <time datetime="2026-02-21">February 21, 2026</time>
+            <span class="text-slate-300">|</span>
+            <span>12 min read</span>
+          </div>
+        </header>
+
+        <!-- Table of Contents -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 md:p-6 mb-8 md:mb-12">
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-3">Contents</h2>
+          <nav class="space-y-2 text-sm md:text-base">
+            <a href="#core-difference" class="block text-slate-700 hover:text-slate-900 transition-colors">The Core Difference</a>
+            <a href="#architecture" class="block text-slate-700 hover:text-slate-900 transition-colors">Architecture Comparison</a>
+            <a href="#strengths" class="block text-slate-700 hover:text-slate-900 transition-colors">What Each Does Well</a>
+            <a href="#gaps" class="block text-slate-700 hover:text-slate-900 transition-colors">What Each Lacks</a>
+            <a href="#mcp-agent-mail" class="block text-slate-700 hover:text-slate-900 transition-colors">MCP Agent Mail: The Coordination Layer</a>
+            <a href="#three-way" class="block text-slate-700 hover:text-slate-900 transition-colors">Three-Way Comparison</a>
+            <a href="#layer-model" class="block text-slate-700 hover:text-slate-900 transition-colors">The Layer Model</a>
+            <a href="#implications" class="block text-slate-700 hover:text-slate-900 transition-colors">Strategic Implications</a>
+          </nav>
+        </div>
+
+        <!-- Article Body -->
+        <div class="prose-content space-y-8 md:space-y-12">
+
+          <!-- The Core Difference -->
+          <section id="core-difference">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">The Core Difference</h2>
+            <p class="text-slate-600 text-base md:text-lg mb-6 leading-relaxed">
+              These protocols solve <strong class="text-slate-900">different problems</strong> and sit at <strong class="text-slate-900">different layers</strong>. Understanding this distinction is the key to seeing how they fit together.
+            </p>
+
+            <div class="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+              <table class="w-full text-sm md:text-base border-collapse">
+                <thead>
+                  <tr class="bg-slate-50">
+                    <th class="text-left p-3 md:p-4 border border-slate-200 font-semibold"></th>
+                    <th class="text-left p-3 md:p-4 border border-slate-200 font-semibold">AMP</th>
+                    <th class="text-left p-3 md:p-4 border border-slate-200 font-semibold">A2A (Google / Linux Foundation)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Analogy</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Email for agents</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">HTTP API for agents</td>
+                  </tr>
+                  <tr class="bg-slate-50/50">
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Model</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Messaging (async, store-and-forward)</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">RPC (request/response, task-based)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Philosophy</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Local-first, messages on your machine</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Cloud-first, tasks on the server</td>
+                  </tr>
+                  <tr class="bg-slate-50/50">
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Who stores data</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">The agent (locally)</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">The server (A2A Server)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Opacity</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Messages are opaque payloads</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Agents are opaque (no internal state shared)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Architecture -->
+          <section id="architecture">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Architecture Comparison</h2>
+
+            <div class="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+              <table class="w-full text-sm md:text-base border-collapse">
+                <thead>
+                  <tr class="bg-slate-50">
+                    <th class="text-left p-3 md:p-4 border border-slate-200 font-semibold">Aspect</th>
+                    <th class="text-left p-3 md:p-4 border border-slate-200 font-semibold">AMP</th>
+                    <th class="text-left p-3 md:p-4 border border-slate-200 font-semibold">A2A</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Transport</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">REST + WebSocket + Relay queue</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">JSON-RPC 2.0 over HTTP(S), SSE, gRPC</td>
+                  </tr>
+                  <tr class="bg-slate-50/50">
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Discovery</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">DNS TXT records + well-known URL + registry</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">"Agent Cards" (JSON metadata at a URL)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Identity</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600"><code class="font-mono text-sm bg-slate-100 px-1.5 py-0.5 rounded">agent@tenant.provider</code> (email-like)</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Agent Card with URL endpoint</td>
+                  </tr>
+                  <tr class="bg-slate-50/50">
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Authentication</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Ed25519 message signing (per-message)</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Standard HTTP auth (OAuth, API keys)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Federation</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Built-in (providers forward cross-domain)</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Not specified (agents talk directly via URLs)</td>
+                  </tr>
+                  <tr class="bg-slate-50/50">
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Message storage</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Local on agent's machine</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Server-side (A2A Server manages tasks)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Delivery</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">WebSocket (live) / Webhook / Relay (offline)</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Sync response / SSE streaming / Push notifications</td>
+                  </tr>
+                  <tr class="bg-slate-50/50">
+                    <td class="p-3 md:p-4 border border-slate-200 font-medium text-slate-700">Spec format</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Markdown docs (9 sections + appendix)</td>
+                    <td class="p-3 md:p-4 border border-slate-200 text-slate-600">Protobuf (normative) + JSON Schema + OpenAPI</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- What Each Does Well -->
+          <section id="strengths">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">What Each Does Well</h2>
+
+            <div class="grid gap-6 md:grid-cols-2 mb-6">
+              <!-- AMP Strengths -->
+              <div class="bg-white border border-slate-200 rounded-xl p-5 md:p-6">
+                <h3 class="text-lg font-semibold mb-4">AMP Strengths</h3>
+                <ul class="space-y-2.5 text-sm md:text-base text-slate-600">
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>True federation (like email &mdash; any provider can talk to any other)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Local-first storage (you own your data)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Cryptographic identity (Ed25519 signatures on every message)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Offline support (relay queues hold messages for 7 days)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Simple mental model (it's email, everyone gets it)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Channel bridging (Slack, Discord, WhatsApp, Email built into the spec)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Privacy by design (providers route, they don't store)</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- A2A Strengths -->
+              <div class="bg-white border border-slate-200 rounded-xl p-5 md:p-6">
+                <h3 class="text-lg font-semibold mb-4">A2A Strengths</h3>
+                <ul class="space-y-2.5 text-sm md:text-base text-slate-600">
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Task lifecycle management (submitted &rarr; working &rarr; completed/failed)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Streaming (SSE for real-time progress updates)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Rich media negotiation (text, forms, files, structured data)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Enterprise-ready auth (OAuth, standard HTTP security)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Multi-language SDKs (Python, Go, JS, Java, .NET)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Backed by Google + Linux Foundation (adoption momentum)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-green-600 mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>Agent capability discovery (skills, supported modalities)</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- What Each Lacks -->
+          <section id="gaps">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">What Each Lacks</h2>
+
+            <div class="grid gap-6 md:grid-cols-2 mb-6">
+              <!-- AMP Gaps -->
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 md:p-6">
+                <h3 class="text-lg font-semibold mb-4">AMP Doesn't Have</h3>
+                <ul class="space-y-2.5 text-sm md:text-base text-slate-600">
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-0.5 flex-shrink-0">&mdash;</span>
+                    <span>Task lifecycle (no concept of "task in progress" &mdash; it's just messages)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-0.5 flex-shrink-0">&mdash;</span>
+                    <span>Streaming (no SSE or real-time progress)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-0.5 flex-shrink-0">&mdash;</span>
+                    <span>Structured capability negotiation (no "Agent Card" equivalent)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-0.5 flex-shrink-0">&mdash;</span>
+                    <span>SDKs in multiple languages (bash + Python only today)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-0.5 flex-shrink-0">&mdash;</span>
+                    <span>Formal spec tooling (no protobuf, no OpenAPI)</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- A2A Gaps -->
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 md:p-6">
+                <h3 class="text-lg font-semibold mb-4">A2A Doesn't Have</h3>
+                <ul class="space-y-2.5 text-sm md:text-base text-slate-600">
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-0.5 flex-shrink-0">&mdash;</span>
+                    <span>True federation (no DNS discovery, no provider-to-provider routing)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-0.5 flex-shrink-0">&mdash;</span>
+                    <span>Local-first storage (tasks live on the server)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-0.5 flex-shrink-0">&mdash;</span>
+                    <span>Cryptographic message signing (relies on transport-level auth)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-0.5 flex-shrink-0">&mdash;</span>
+                    <span>Offline queuing (no relay mechanism for disconnected agents)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-0.5 flex-shrink-0">&mdash;</span>
+                    <span>Channel bridging (no built-in Slack/Discord/Email bridges)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-0.5 flex-shrink-0">&mdash;</span>
+                    <span>Email-like addressing (agents are URLs, not addresses)</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-5 md:p-6">
+              <h3 class="text-lg font-semibold mb-3">Where They Overlap</h3>
+              <p class="text-slate-600 text-sm md:text-base mb-3">Both protocols provide:</p>
+              <div class="grid gap-2 sm:grid-cols-2 md:grid-cols-3 text-sm md:text-base text-slate-600">
+                <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-slate-400 rounded-full flex-shrink-0"></span>Agent-to-agent communication</span>
+                <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-slate-400 rounded-full flex-shrink-0"></span>Capability discovery</span>
+                <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-slate-400 rounded-full flex-shrink-0"></span>Async support</span>
+                <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-slate-400 rounded-full flex-shrink-0"></span>Structured metadata exchange</span>
+                <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-slate-400 rounded-full flex-shrink-0"></span>Security considerations</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- MCP Agent Mail -->
+          <section id="mcp-agent-mail">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">MCP Agent Mail: The Coordination Layer</h2>
+            <p class="text-slate-600 text-base md:text-lg mb-6 leading-relaxed">
+              <strong class="text-slate-900">Not a protocol</strong> &mdash; a coordination tool for coding agents working in the same codebase. Created by Jeffrey Emanuel.
+            </p>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-5 md:p-6 mb-6">
+              <h3 class="text-lg font-semibold mb-4">What It Does</h3>
+              <ul class="space-y-2.5 text-sm md:text-base text-slate-600">
+                <li class="flex items-start gap-2">
+                  <span class="text-slate-400 mt-0.5 flex-shrink-0">&#8226;</span>
+                  <span>Agents get friendly identities (e.g., "GreenCastle")</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-slate-400 mt-0.5 flex-shrink-0">&#8226;</span>
+                  <span>Inbox/outbox for async messaging between agents in the same project</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-slate-400 mt-0.5 flex-shrink-0">&#8226;</span>
+                  <span><strong class="text-slate-900">File reservation/leases</strong> &mdash; agents claim files before editing to avoid conflicts</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-slate-400 mt-0.5 flex-shrink-0">&#8226;</span>
+                  <span>Searchable message threads with Git-backed storage and SQLite indexing</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-slate-400 mt-0.5 flex-shrink-0">&#8226;</span>
+                  <span>Runs as FastMCP server on localhost (port 8765)</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-slate-400 mt-0.5 flex-shrink-0">&#8226;</span>
+                  <span>Works with Claude Code, Codex, Gemini CLI, and more</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 md:p-6">
+              <h3 class="text-lg font-semibold mb-3 text-amber-900">The Interesting Bit: File Leases</h3>
+              <p class="text-amber-800 text-sm md:text-base leading-relaxed">
+                The one thing MCP Agent Mail has that neither AMP nor A2A addresses is <strong>file-level conflict prevention</strong>. When multiple coding agents work on the same codebase, they can claim files with advisory leases so others don't overwrite their work. This is a real problem when running parallel agents.
+              </p>
+            </div>
+          </section>
+
+          <!-- Three-Way Comparison -->
+          <section id="three-way">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Three-Way Comparison</h2>
+
+            <div class="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+              <table class="w-full text-sm border-collapse">
+                <thead>
+                  <tr class="bg-slate-50">
+                    <th class="text-left p-3 border border-slate-200 font-semibold"></th>
+                    <th class="text-left p-3 border border-slate-200 font-semibold">AMP</th>
+                    <th class="text-left p-3 border border-slate-200 font-semibold">A2A (Google)</th>
+                    <th class="text-left p-3 border border-slate-200 font-semibold">MCP Agent Mail</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="p-3 border border-slate-200 font-medium text-slate-700">Scope</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Cross-provider messaging</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Cross-agent task delegation</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Same-project coordination</td>
+                  </tr>
+                  <tr class="bg-slate-50/50">
+                    <td class="p-3 border border-slate-200 font-medium text-slate-700">Scale</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Internet (federated)</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Internet (HTTP endpoints)</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Single machine / project</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 border border-slate-200 font-medium text-slate-700">Identity</td>
+                    <td class="p-3 border border-slate-200 text-slate-600"><code class="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded">agent@tenant.provider</code></td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Agent Card URL</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Friendly name ("GreenCastle")</td>
+                  </tr>
+                  <tr class="bg-slate-50/50">
+                    <td class="p-3 border border-slate-200 font-medium text-slate-700">Discovery</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">DNS + registry</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Agent Cards</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Local directory listing</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 border border-slate-200 font-medium text-slate-700">Federation</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Yes (cross-provider)</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">No (direct URLs)</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">No (localhost only)</td>
+                  </tr>
+                  <tr class="bg-slate-50/50">
+                    <td class="p-3 border border-slate-200 font-medium text-slate-700">Transport</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">REST + WebSocket + Relay</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">JSON-RPC / gRPC / SSE</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">FastMCP (HTTP, localhost)</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 border border-slate-200 font-medium text-slate-700">Storage</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Local (agent's machine)</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Server-side</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Git + SQLite (project dir)</td>
+                  </tr>
+                  <tr class="bg-slate-50/50">
+                    <td class="p-3 border border-slate-200 font-medium text-slate-700">Key feature</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Email-like messaging at scale</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Task lifecycle + streaming</td>
+                    <td class="p-3 border border-slate-200 text-slate-600 font-medium">File reservations/leases</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 border border-slate-200 font-medium text-slate-700">Security</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Ed25519 signatures</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">OAuth / API keys</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Bearer token</td>
+                  </tr>
+                  <tr class="bg-slate-50/50">
+                    <td class="p-3 border border-slate-200 font-medium text-slate-700">Backing</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">23blocks</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Google + Linux Foundation</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Solo developer</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 border border-slate-200 font-medium text-slate-700">Use case</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Agents talking across the internet</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">Agent A delegates task to Agent B</td>
+                    <td class="p-3 border border-slate-200 text-slate-600">3 agents editing the same repo</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Layer Model -->
+          <section id="layer-model">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">The Layer Model: Three Layers, Three Tools</h2>
+            <p class="text-slate-600 text-base md:text-lg mb-6 leading-relaxed">
+              They complement each other &mdash; they sit at different layers:
+            </p>
+
+            <div class="code-block rounded-xl p-4 md:p-6 font-mono text-xs md:text-sm overflow-x-auto mb-6">
+              <div class="text-slate-300 whitespace-pre leading-relaxed">
+<span class="text-slate-500">&#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;</span>
+<span class="text-slate-500">&#9474;</span>  <span class="text-amber-400">A2A</span> = How agents <span class="text-amber-400">COLLABORATE</span> on tasks      <span class="text-slate-500">&#9474;</span>  <span class="text-slate-500">&larr; "Do this work for me"</span>
+<span class="text-slate-500">&#9474;</span>  <span class="text-slate-500">(RPC, task lifecycle, streaming)</span>           <span class="text-slate-500">&#9474;</span>
+<span class="text-slate-500">&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;</span>
+<span class="text-slate-500">&#9474;</span>  <span class="text-green-400">AMP</span> = How agents <span class="text-green-400">COMMUNICATE</span>               <span class="text-slate-500">&#9474;</span>  <span class="text-slate-500">&larr; "I have something to tell you"</span>
+<span class="text-slate-500">&#9474;</span>  <span class="text-slate-500">(Messaging, federation, local storage)</span>     <span class="text-slate-500">&#9474;</span>
+<span class="text-slate-500">&#9500;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9508;</span>
+<span class="text-slate-500">&#9474;</span>  <span class="text-purple-400">MCP Agent Mail</span> = How agents <span class="text-purple-400">COORDINATE</span>     <span class="text-slate-500">&#9474;</span>  <span class="text-slate-500">&larr; "I'm editing this file"</span>
+<span class="text-slate-500">&#9474;</span>  <span class="text-slate-500">(File leases, local inbox, same project)</span>   <span class="text-slate-500">&#9474;</span>
+<span class="text-slate-500">&#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;</span></div>
+            </div>
+
+            <p class="text-slate-600 text-base md:text-lg leading-relaxed">
+              An agent could use <strong class="text-slate-900">AMP to receive a message</strong> ("Hey, I need you to analyze this data"), use <strong class="text-slate-900">A2A to delegate a task</strong> to a specialized agent ("Run this analysis and stream me the results"), and use <strong class="text-slate-900">MCP Agent Mail</strong> to coordinate with other agents working in the same repo.
+            </p>
+          </section>
+
+          <!-- Strategic Implications -->
+          <section id="implications">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Strategic Implications</h2>
+
+            <div class="space-y-4">
+              <div class="bg-white border border-slate-200 rounded-xl p-5 md:p-6">
+                <h3 class="text-base md:text-lg font-semibold mb-2">AMP fills a gap A2A doesn't cover</h3>
+                <p class="text-slate-600 text-sm md:text-base">Federation, local-first storage, cryptographic identity, channel bridging. Google didn't build that.</p>
+              </div>
+
+              <div class="bg-white border border-slate-200 rounded-xl p-5 md:p-6">
+                <h3 class="text-base md:text-lg font-semibold mb-2">A2A has momentum</h3>
+                <p class="text-slate-600 text-sm md:text-base">Google, Linux Foundation, SDKs in 5 languages, DeepLearning.AI course. Hard to ignore.</p>
+              </div>
+
+              <div class="bg-white border border-slate-200 rounded-xl p-5 md:p-6">
+                <h3 class="text-base md:text-lg font-semibold mb-2">Possible play: AMP as transport for A2A</h3>
+                <p class="text-slate-600 text-sm md:text-base">An A2A task notification arrives via AMP message. Best of both worlds.</p>
+              </div>
+
+              <div class="bg-white border border-slate-200 rounded-xl p-5 md:p-6">
+                <h3 class="text-base md:text-lg font-semibold mb-2">Or: AMP-to-A2A bridge</h3>
+                <p class="text-slate-600 text-sm md:text-base">Like our Slack/Email gateways, build a bridge so AMP agents can interact with A2A agents and vice versa.</p>
+              </div>
+
+              <div class="bg-slate-900 text-white rounded-xl p-5 md:p-6">
+                <h3 class="text-base md:text-lg font-semibold mb-2">AMP's unique value</h3>
+                <p class="text-slate-300 text-sm md:text-base">Even in a world where A2A wins for task delegation, agents still need a way to receive messages, be discovered via DNS, bridge to Slack/Email, and store data locally. That's AMP.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Resources -->
+          <section class="border-t border-slate-200 pt-8 md:pt-12">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Resources</h2>
+
+            <div class="grid gap-4 sm:grid-cols-3">
+              <a href="https://github.com/agentmessaging/protocol" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl p-5 transition-all group">
+                <h3 class="font-semibold mb-1 group-hover:text-slate-700 transition-colors">AMP Spec</h3>
+                <p class="text-sm text-slate-500">github.com/agentmessaging/protocol</p>
+              </a>
+              <a href="https://github.com/a2aproject/A2A" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl p-5 transition-all group">
+                <h3 class="font-semibold mb-1 group-hover:text-slate-700 transition-colors">A2A Spec</h3>
+                <p class="text-sm text-slate-500">github.com/a2aproject/A2A</p>
+              </a>
+              <a href="https://github.com/Dicklesworthstone/mcp_agent_mail" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl p-5 transition-all group">
+                <h3 class="font-semibold mb-1 group-hover:text-slate-700 transition-colors">MCP Agent Mail</h3>
+                <p class="text-sm text-slate-500">github.com/Dicklesworthstone/mcp_agent_mail</p>
+              </a>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-50 border-t border-slate-200 py-6 md:py-8">
+    <div class="max-w-6xl mx-auto px-4 md:px-6">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div class="flex items-center justify-center md:justify-start gap-2 text-slate-600">
+          <img src="/assets/images/amp-logo-trimmed.png" alt="{AMP}" style="height: 24px;">
+          <span class="text-sm">Agent Messaging Protocol</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 md:gap-5 text-xs md:text-sm text-slate-500">
+          <a href="https://github.com/agentmessaging" class="hover:text-slate-900 transition-colors" title="GitHub">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com/agentmessaging" class="hover:text-slate-900 transition-colors" title="X">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="mailto:hello@agentmessaging.org" class="hover:text-slate-900 transition-colors" title="Email">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </a>
+          <span class="text-slate-300">|</span>
+          <a href="https://github.com/agentmessaging/protocol/blob/main/LICENSE" class="hover:text-slate-900 transition-colors">Apache 2.0</a>
+          <a href="https://github.com/agentmessaging/protocol/blob/main/SECURITY.md" class="hover:text-slate-900 transition-colors">Security</a>
+          <span>By <a href="https://23blocks.com" class="text-slate-700 hover:text-slate-900 transition-colors">23blocks</a></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
