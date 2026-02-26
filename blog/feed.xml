@@ -6,9 +6,18 @@
     <link>https://agentmessaging.org/blog/</link>
     <atom:link href="https://agentmessaging.org/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Feb 2026 00:00:00 +0000</lastBuildDate>
     <managingEditor>hello@agentmessaging.org (23blocks)</managingEditor>
     <webMaster>hello@agentmessaging.org (23blocks)</webMaster>
+    <item>
+      <title>AMP vs Aqua: Federated vs Peer-to-Peer Agent Messaging</title>
+      <link>https://agentmessaging.org/blog/amp-vs-aqua-federated-vs-p2p/</link>
+      <guid isPermaLink="true">https://agentmessaging.org/blog/amp-vs-aqua-federated-vs-p2p/</guid>
+      <description>Two open source protocols for AI agent communication take fundamentally different architectural approaches. A deep comparison of the trade-offs between federated and P2P agent messaging.</description>
+      <pubDate>Tue, 25 Feb 2026 00:00:00 +0000</pubDate>
+      <category>Comparison</category>
+      <category>Architecture</category>
+    </item>
     <item>
       <title>The Agent Communication Landscape: AMP vs A2A vs MCP Agent Mail</title>
       <link>https://agentmessaging.org/blog/agent-communication-landscape/</link>

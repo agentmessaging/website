@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMP vs Aqua: Federated vs Peer-to-Peer Agent Messaging - Agent Messaging Protocol</title>
+  <meta name="description" content="A deep comparison of AMP and Aqua — two open source protocols for AI agent communication that take fundamentally different architectural approaches: federated vs pure P2P.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://agentmessaging.org/blog/amp-vs-aqua-federated-vs-p2p/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AMP vs Aqua: Federated vs Peer-to-Peer Agent Messaging">
+  <meta property="og:description" content="Two open source protocols, two fundamentally different architectures for AI agent communication. A detailed technical comparison of the trade-offs.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://agentmessaging.org/blog/amp-vs-aqua-federated-vs-p2p/">
+  <meta property="og:site_name" content="Agent Messaging Protocol">
+  <meta property="og:image" content="https://agentmessaging.org/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="article:published_time" content="2026-02-25T00:00:00Z">
+  <meta property="article:author" content="23blocks">
+  <meta property="article:section" content="Protocol Design">
+  <meta property="article:tag" content="AMP">
+  <meta property="article:tag" content="Aqua">
+  <meta property="article:tag" content="P2P">
+  <meta property="article:tag" content="Federation">
+  <meta property="article:tag" content="Protocol Comparison">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@agentmessaging">
+  <meta name="twitter:creator" content="@agentmessaging">
+  <meta name="twitter:title" content="AMP vs Aqua: Federated vs Peer-to-Peer Agent Messaging">
+  <meta name="twitter:description" content="Federated email model vs pure P2P libp2p. Two open source protocols solving AI agent communication from opposite ends.">
+  <meta name="twitter:image" content="https://agentmessaging.org/og-image.png">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "AMP vs Aqua: Federated vs Peer-to-Peer Agent Messaging",
+    "description": "A deep comparison of AMP and Aqua — two open source protocols for AI agent communication that take fundamentally different architectural approaches.",
+    "datePublished": "2026-02-25T00:00:00Z",
+    "dateModified": "2026-02-25T00:00:00Z",
+    "author": {
+      "@type": "Person",
+      "name": "Juan Pelaez",
+      "url": "https://x.com/jkpelaez"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Agent Messaging Protocol",
+      "url": "https://agentmessaging.org",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agentmessaging.org/assets/images/amp-logo-trimmed.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://agentmessaging.org/blog/amp-vs-aqua-federated-vs-p2p/"
+    },
+    "image": "https://agentmessaging.org/og-image.png",
+    "keywords": ["AMP", "Aqua", "P2P", "federation", "AI agent communication", "protocol comparison", "libp2p", "agent messaging"],
+    "articleSection": "Protocol Design",
+    "wordCount": 3200
+  }
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="AMP Blog" href="/blog/feed.xml">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Space Grotesk', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .code-block {
+      background: #1e293b;
+    }
+    article h2 { scroll-margin-top: 5rem; }
+  </style>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded focus:shadow-lg">Skip to content</a>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 md:px-6 py-3">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 text-base md:text-xl font-semibold">
+          <img src="/assets/images/amp-logo-trimmed.png" alt="{AMP}" style="height: 24px;">
+          <span class="hidden sm:inline">Agent Messaging</span>
+          <span class="sm:hidden">AMP</span>
+        </a>
+        <div class="flex items-center gap-3 md:gap-6">
+          <a href="/#features" class="hidden md:block text-slate-900 hover:text-slate-600 transition-colors">Features</a>
+          <a href="/#security" class="hidden md:block text-slate-900 hover:text-slate-600 transition-colors">Security</a>
+          <a href="/#how-it-works" class="hidden md:block text-slate-900 hover:text-slate-600 transition-colors">How it Works</a>
+          <a href="https://github.com/agentmessaging/protocol" class="hidden sm:block text-slate-900 hover:text-slate-600 transition-colors text-sm md:text-base">Spec</a>
+          <a href="/blog/" class="text-slate-900 hover:text-slate-600 transition-colors text-sm md:text-base font-medium">Blog</a>
+          <a href="https://github.com/agentmessaging/protocol" class="text-slate-900 hover:text-slate-600 transition-colors">
+            <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <article class="pt-20 md:pt-24 pb-16 md:pb-24">
+      <div class="max-w-4xl mx-auto px-4 md:px-6">
+
+        <!-- Article Header -->
+        <header class="mb-8 md:mb-12">
+          <div class="mb-4">
+            <a href="/blog/" class="text-sm text-slate-500 hover:text-slate-700 transition-colors inline-flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+              Back to Blog
+            </a>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-slate-100 text-slate-600 text-xs font-medium px-2.5 py-0.5 rounded-full">Comparison</span>
+            <span class="bg-slate-100 text-slate-600 text-xs font-medium px-2.5 py-0.5 rounded-full">Architecture</span>
+          </div>
+          <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-4 md:mb-6">
+            AMP vs Aqua: Federated vs Peer-to-Peer Agent Messaging
+          </h1>
+          <p class="text-base md:text-xl text-slate-600 mb-4 md:mb-6 leading-relaxed">
+            Two open source protocols are emerging to solve AI agent communication from opposite ends of the architecture spectrum. One follows the email model. The other follows the BitTorrent model. Both are right &mdash; for different reasons.
+          </p>
+          <div class="flex items-center gap-3 text-sm text-slate-500 border-b border-slate-200 pb-6">
+            <div class="flex items-center gap-2">
+              <span class="font-medium text-slate-700">Juan Pel&aacute;ez</span>
+              <a href="https://x.com/jkpelaez" class="text-slate-400 hover:text-slate-700 transition-colors" title="@jkpelaez on X">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+            </div>
+            <span class="text-slate-300">|</span>
+            <time datetime="2026-02-25">February 25, 2026</time>
+            <span class="text-slate-300">|</span>
+            <span>15 min read</span>
+          </div>
+        </header>
+
+        <!-- Table of Contents -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 md:p-6 mb-8 md:mb-12">
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-3">Contents</h2>
+          <nav class="space-y-2 text-sm md:text-base">
+            <a href="#fundamental-split" class="block text-slate-700 hover:text-slate-900 transition-colors">The Fundamental Split</a>
+            <a href="#architecture" class="block text-slate-700 hover:text-slate-900 transition-colors">Architecture at a Glance</a>
+            <a href="#identity" class="block text-slate-700 hover:text-slate-900 transition-colors">Identity: Addresses vs Peer IDs</a>
+            <a href="#security" class="block text-slate-700 hover:text-slate-900 transition-colors">Security Models</a>
+            <a href="#transport" class="block text-slate-700 hover:text-slate-900 transition-colors">Transport and Connectivity</a>
+            <a href="#messages" class="block text-slate-700 hover:text-slate-900 transition-colors">Message Model</a>
+            <a href="#what-aqua-does-better" class="block text-slate-700 hover:text-slate-900 transition-colors">What Aqua Does Better</a>
+            <a href="#what-amp-does-better" class="block text-slate-700 hover:text-slate-900 transition-colors">What AMP Does Better</a>
+            <a href="#why-we-chose-federation" class="block text-slate-700 hover:text-slate-900 transition-colors">Why We Chose Federation</a>
+            <a href="#what-we-are-building-next" class="block text-slate-700 hover:text-slate-900 transition-colors">What We're Building Next</a>
+            <a href="#right-tool" class="block text-slate-700 hover:text-slate-900 transition-colors">Choosing the Right Tool</a>
+          </nav>
+        </div>
+
+        <!-- Content -->
+        <div class="prose-section space-y-8 md:space-y-12">
+
+          <!-- The Fundamental Split -->
+          <section>
+            <h2 id="fundamental-split" class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">The Fundamental Split</h2>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              The AI agent communication space is young, and two open source projects are tackling the same problem from opposite architectural foundations.
+            </p>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              <strong>AMP</strong> (Agent Messaging Protocol) follows the <strong>email/SMTP model</strong>: independent providers route messages between agents, with federation for cross-provider delivery. Think Gmail talking to Outlook &mdash; but for AI agents.
+            </p>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              <strong>Aqua</strong> follows the <strong>libp2p model</strong>: agents connect directly to each other with no intermediary servers required. Think BitTorrent &mdash; but for agent messages.
+            </p>
+            <p class="text-slate-700 leading-relaxed">
+              Both are Apache 2.0 licensed. Both use Ed25519 cryptography. Both store data locally. But the architectural choice between federation and P2P cascades into every other design decision &mdash; identity, discovery, security, offline delivery, and organizational fit.
+            </p>
+          </section>
+
+          <!-- Architecture at a Glance -->
+          <section>
+            <h2 id="architecture" class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Architecture at a Glance</h2>
+            <div class="overflow-x-auto mb-6">
+              <table class="w-full text-sm md:text-base border-collapse">
+                <thead>
+                  <tr class="border-b-2 border-slate-300">
+                    <th class="text-left py-3 pr-4 font-semibold text-slate-900 min-w-[140px]">Aspect</th>
+                    <th class="text-left py-3 pr-4 font-semibold text-slate-900 min-w-[200px]">AMP</th>
+                    <th class="text-left py-3 font-semibold text-slate-900 min-w-[200px]">Aqua</th>
+                  </tr>
+                </thead>
+                <tbody class="text-slate-700">
+                  <tr class="border-b border-slate-200">
+                    <td class="py-3 pr-4 font-medium">Topology</td>
+                    <td class="py-3 pr-4">Federated (provider-mediated)</td>
+                    <td class="py-3">Pure P2P (libp2p)</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="py-3 pr-4 font-medium">Infrastructure</td>
+                    <td class="py-3 pr-4">Provider required (router + relay)</td>
+                    <td class="py-3">None required (optional relay for NAT)</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="py-3 pr-4 font-medium">Identity</td>
+                    <td class="py-3 pr-4"><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">alice@acme.provider.ai</code></td>
+                    <td class="py-3"><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">aqua:12D3KooW...</code></td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="py-3 pr-4 font-medium">Storage</td>
+                    <td class="py-3 pr-4">Local-first</td>
+                    <td class="py-3">Local-first</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="py-3 pr-4 font-medium">Wire protocol</td>
+                    <td class="py-3 pr-4">REST API + JSON</td>
+                    <td class="py-3">JSON-RPC 2.0 over libp2p streams</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="py-3 pr-4 font-medium">Transport</td>
+                    <td class="py-3 pr-4">HTTPS, WebSocket, Webhook</td>
+                    <td class="py-3">TCP, QUIC, WebSocket, WebTransport</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="py-3 pr-4 font-medium">Implementation</td>
+                    <td class="py-3 pr-4">Bash CLI plugin + spec</td>
+                    <td class="py-3">Go binary (~3k lines)</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 pr-4 font-medium">License</td>
+                    <td class="py-3 pr-4">Apache 2.0</td>
+                    <td class="py-3">Apache 2.0</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Identity -->
+          <section>
+            <h2 id="identity" class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Identity: Addresses vs Peer IDs</h2>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              The identity model is where the architectural choice shows most clearly.
+            </p>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              <strong>AMP uses human-readable addresses</strong> that mirror email: <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">agent-name@scope.provider</code>. Addresses support hierarchical scoping &mdash; <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">agent@repo.platform.tenant.provider</code> &mdash; making them natural for organizational structures. You can look at an address and understand where an agent lives.
+            </p>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              <strong>Aqua uses cryptographic peer IDs</strong> derived from Ed25519 keys via libp2p. The address <em>is</em> the public key fingerprint. This means identity cannot be spoofed &mdash; it is mathematically tied to the keypair. But the trade-off is readability: <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">aqua:12D3KooWQK9...</code> is not something a human can remember or type.
+            </p>
+            <p class="text-slate-700 leading-relaxed">
+              Aqua compensates with optional nicknames and a markdown-inspired syntax (<code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">[alice](aqua:12D3KooW...)</code>), but the underlying identity is always the peer ID. AMP trades self-certifying identity for usability, relying on providers to enforce the binding between addresses and public keys.
+            </p>
+          </section>
+
+          <!-- Security Models -->
+          <section>
+            <h2 id="security" class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Security Models</h2>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              Both protocols use Ed25519 for signing, but the trust models diverge significantly.
+            </p>
+
+            <h3 class="text-lg md:text-xl font-semibold mb-3 text-slate-800">AMP: Provider-Mediated Trust</h3>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              AMP classifies every incoming message into three trust levels: <strong>verified</strong> (same tenant, valid signature), <strong>external</strong> (different tenant/provider, valid signature), and <strong>untrusted</strong> (invalid or missing signature). External messages are wrapped in <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">&lt;external-content&gt;</code> tags &mdash; a protocol-level defense against prompt injection that tells the receiving AI agent to treat the content as data, not instructions.
+            </p>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              This content wrapping is arguably AMP's most distinctive security feature. In a world where AI agents process messages that could contain adversarial instructions, having the protocol itself annotate trust boundaries is a meaningful defense layer.
+            </p>
+
+            <h3 class="text-lg md:text-xl font-semibold mb-3 text-slate-800">Aqua: Peer-Managed Trust</h3>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              Aqua uses four trust states: <strong>tofu</strong> (Trust On First Use &mdash; default for new contacts), <strong>verified</strong> (explicitly confirmed out-of-band), <strong>conflicted</strong> (identity mismatch detected), and <strong>revoked</strong>. Communication is automatically blocked for conflicted and revoked contacts.
+            </p>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              Aqua also gets transport-layer encryption for free from libp2p &mdash; every connection is encrypted via the Noise protocol or TLS 1.3. AMP currently has no end-to-end encryption (planned for v2), meaning providers can see message payloads.
+            </p>
+
+            <div class="overflow-x-auto mb-4">
+              <table class="w-full text-sm md:text-base border-collapse">
+                <thead>
+                  <tr class="border-b-2 border-slate-300">
+                    <th class="text-left py-3 pr-4 font-semibold text-slate-900 min-w-[180px]">Security Feature</th>
+                    <th class="text-left py-3 pr-4 font-semibold text-slate-900">AMP</th>
+                    <th class="text-left py-3 font-semibold text-slate-900">Aqua</th>
+                  </tr>
+                </thead>
+                <tbody class="text-slate-700">
+                  <tr class="border-b border-slate-200">
+                    <td class="py-3 pr-4 font-medium">Message signing</td>
+                    <td class="py-3 pr-4">Ed25519 selective signing</td>
+                    <td class="py-3">Transport-layer (libp2p)</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="py-3 pr-4 font-medium">Transport encryption</td>
+                    <td class="py-3 pr-4">TLS required (no E2E yet)</td>
+                    <td class="py-3">Noise / TLS 1.3 (built-in)</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="py-3 pr-4 font-medium">Prompt injection defense</td>
+                    <td class="py-3 pr-4">Content wrapping + injection detection</td>
+                    <td class="py-3">Not addressed</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="py-3 pr-4 font-medium">Contact card signing</td>
+                    <td class="py-3 pr-4">Provider-hosted key resolution</td>
+                    <td class="py-3">JCS (RFC 8785) canonical signing</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="py-3 pr-4 font-medium">Identity conflict detection</td>
+                    <td class="py-3 pr-4">Not implemented</td>
+                    <td class="py-3">Automatic (blocks communication)</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 pr-4 font-medium">Group E2E encryption</td>
+                    <td class="py-3 pr-4">Not specified</td>
+                    <td class="py-3">Designed (Sender Keys + Epoch Rotation)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Transport and Connectivity -->
+          <section>
+            <h2 id="transport" class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Transport and Connectivity</h2>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              <strong>Aqua inherits libp2p's multi-transport stack</strong>: TCP, QUIC, WebSocket, and WebTransport, all running simultaneously. NAT traversal happens automatically via Circuit Relay v2. An agent behind a firewall can communicate with any other agent through a relay without either party configuring port forwarding.
+            </p>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              <strong>AMP specifies four delivery modes</strong>: WebSocket (real-time), Webhook (push), Relay/Polling (pull for offline agents), and Mesh HTTP (local network forwarding). The provider handles routing and queues messages for up to 7 days when an agent is offline.
+            </p>
+            <p class="text-slate-700 leading-relaxed">
+              The key difference: in AMP, the provider always mediates. In Aqua, agents connect directly. This means Aqua has lower latency for direct connections, but AMP can reliably deliver messages to agents that come online later.
+            </p>
+          </section>
+
+          <!-- Message Model -->
+          <section>
+            <h2 id="messages" class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Message Model</h2>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              AMP's message model is richer and more structured. Every message has a typed payload (<code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">request</code>, <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">response</code>, <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">task</code>, <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">handoff</code>, <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">alert</code>, and more), threading via <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">thread_id</code> and <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">in_reply_to</code>, priority levels, a structured <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">context</code> field for arbitrary metadata (up to 256 KB), and file attachments with a full scanning pipeline (MIME blocking, antivirus, prompt injection detection).
+            </p>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              Aqua's message model is intentionally minimal: a <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">topic</code>, a <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">content_type</code>, a base64-encoded payload, an idempotency key, and optional threading. The payload is raw bytes &mdash; Aqua does not prescribe structure within the payload.
+            </p>
+            <p class="text-slate-700 leading-relaxed">
+              This reflects the fundamental design philosophy: AMP defines the semantics of agent communication at the protocol level. Aqua provides the transport and leaves semantics to the application.
+            </p>
+          </section>
+
+          <!-- What Aqua Does Better -->
+          <section>
+            <h2 id="what-aqua-does-better" class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">What Aqua Does Better</h2>
+
+            <div class="space-y-4">
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 md:p-5">
+                <h3 class="font-semibold mb-2">Zero infrastructure dependency</h3>
+                <p class="text-slate-700 text-sm md:text-base">Install the Go binary, run <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">aqua serve</code>, and you're reachable. No provider server, no registration, no API keys. Two agents on the same network can exchange messages in under a minute.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 md:p-5">
+                <h3 class="font-semibold mb-2">Single compiled binary</h3>
+                <p class="text-slate-700 text-sm md:text-base">Aqua ships as a single Go binary with zero runtime dependencies. AMP's current implementation requires Bash, curl, jq, openssl, and base64. The Go binary is more portable, faster, and easier to distribute.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 md:p-5">
+                <h3 class="font-semibold mb-2">Built-in transport encryption</h3>
+                <p class="text-slate-700 text-sm md:text-base">Every Aqua connection is encrypted via libp2p's Noise protocol or TLS 1.3. AMP has no end-to-end encryption in v1 &mdash; providers can see message content. This is AMP's most significant security gap.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 md:p-5">
+                <h3 class="font-semibold mb-2">Mature transport layer</h3>
+                <p class="text-slate-700 text-sm md:text-base">Aqua inherits libp2p's battle-tested networking: automatic multi-transport, NAT traversal via Circuit Relay v2, and protocol negotiation. AMP specifies WebSocket, Webhook, and Polling but most delivery modes remain unimplemented.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 md:p-5">
+                <h3 class="font-semibold mb-2">Portable signed contact cards</h3>
+                <p class="text-slate-700 text-sm md:text-base">Aqua uses JCS (RFC 8785) canonicalization for signing contact cards &mdash; a proper IETF standard. Cards can be exported, shared, and verified offline. AMP relies on the provider's key resolution endpoint.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 md:p-5">
+                <h3 class="font-semibold mb-2">Built-in deduplication</h3>
+                <p class="text-slate-700 text-sm md:text-base">Every Aqua message carries an idempotency key with server-side deduplication (7-day TTL, 10k entries). AMP has replay protection via a local database but no idempotency key in the protocol itself.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- What AMP Does Better -->
+          <section>
+            <h2 id="what-amp-does-better" class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">What AMP Does Better</h2>
+
+            <div class="space-y-4">
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 md:p-5">
+                <h3 class="font-semibold mb-2">Human-readable addresses</h3>
+                <p class="text-slate-700 text-sm md:text-base"><code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">alice@acme.crabmail.ai</code> vs <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">aqua:12D3KooWQK9...</code>. AMP addresses are memorable, typeable, and immediately tell you the agent's organization and provider. This matters for real-world adoption and debugging.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 md:p-5">
+                <h3 class="font-semibold mb-2">Prompt injection defense</h3>
+                <p class="text-slate-700 text-sm md:text-base">AMP's <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">&lt;external-content&gt;</code> wrapping is a protocol-level defense specifically designed for AI agents. When an agent receives a message from an external source, the protocol itself signals that the content should be treated as data, not instructions. Aqua does not address this problem.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 md:p-5">
+                <h3 class="font-semibold mb-2">Offline message delivery</h3>
+                <p class="text-slate-700 text-sm md:text-base">AMP providers queue messages for offline agents with a 7-day TTL. If an agent comes online next week, its messages are waiting. In Aqua, if the recipient is offline, the message fails. Durable retransmission is still on Aqua's roadmap.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 md:p-5">
+                <h3 class="font-semibold mb-2">Rich message semantics</h3>
+                <p class="text-slate-700 text-sm md:text-base">Typed payloads, priority levels, structured context, threading, and file attachments with a security scanning pipeline. AMP defines the language of agent collaboration at the protocol level, not just the transport.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 md:p-5">
+                <h3 class="font-semibold mb-2">Comprehensive federation spec</h3>
+                <p class="text-slate-700 text-sm md:text-base">DNS TXT records, well-known URLs, a central bootstrap registry, cross-provider routing with dual-layer signatures. AMP has a complete design for how independent providers discover and communicate with each other. Aqua has no discovery mechanism &mdash; contacts must be exchanged manually.</p>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 md:p-5">
+                <h3 class="font-semibold mb-2">Attachment security pipeline</h3>
+                <p class="text-slate-700 text-sm md:text-base">MIME type blocking, magic byte verification, antivirus scanning, and prompt injection detection for file attachments. Aqua does not handle file attachments at the protocol level.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Why We Chose Federation -->
+          <section>
+            <h2 id="why-we-chose-federation" class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Why We Chose Federation</h2>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              We respect Aqua's approach. P2P is elegant, and libp2p is a proven foundation. But we chose federation deliberately, for reasons that matter in organizational deployments.
+            </p>
+
+            <h3 class="text-lg md:text-xl font-semibold mb-3 text-slate-800">Agents go offline constantly</h3>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              AI agents are not always-on servers. They run inside Claude Code sessions, CI pipelines, cron jobs, and developer laptops. They start, do work, and stop. A provider that queues messages for offline agents is not overhead &mdash; it is essential infrastructure. In P2P, if both agents are not online simultaneously, communication fails.
+            </p>
+
+            <h3 class="text-lg md:text-xl font-semibold mb-3 text-slate-800">Organizations need boundaries</h3>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              The tenant and provider model maps directly to how organizations actually work. An IT team can run a provider, control which agents exist, audit message flows, and enforce policies. In P2P, every agent is autonomous &mdash; which is powerful for individual use but challenging for compliance, observability, and access control.
+            </p>
+
+            <h3 class="text-lg md:text-xl font-semibold mb-3 text-slate-800">Discovery needs infrastructure</h3>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              Agents need to find each other. AMP uses DNS TXT records and well-known URLs &mdash; the same mechanisms that email, Matrix, and other federated protocols use. Aqua currently requires out-of-band contact exchange. Aqua's roadmap includes an online directory service, which is effectively a form of infrastructure similar to what federation provides.
+            </p>
+
+            <h3 class="text-lg md:text-xl font-semibold mb-3 text-slate-800">AI agents need structural safety signals</h3>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              When an AI agent receives a message saying "delete all files in the project directory," is that a legitimate task from a trusted colleague or a prompt injection from an adversary? AMP's trust-level annotations and content wrapping give the receiving agent a structural signal at the protocol level. This is a problem unique to AI-to-AI communication that pure transport protocols do not address.
+            </p>
+
+            <h3 class="text-lg md:text-xl font-semibold mb-3 text-slate-800">Readability matters</h3>
+            <p class="text-slate-700 leading-relaxed">
+              When debugging agent communication, <code class="bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono">alice@acme.crabmail.ai</code> tells you immediately who sent the message and from where. A peer ID requires a lookup to mean anything. This is a practical advantage that compounds over time as agent systems grow in complexity.
+            </p>
+          </section>
+
+          <!-- What We're Building Next -->
+          <section>
+            <h2 id="what-we-are-building-next" class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">What We're Building Next</h2>
+            <p class="text-slate-700 leading-relaxed mb-4">
+              Studying Aqua's implementation has sharpened our priorities. Here is what we're focused on, informed by what works well in both protocols.
+            </p>
+
+            <div class="space-y-4">
+              <div class="border-l-4 border-slate-900 pl-4 md:pl-5">
+                <h3 class="font-semibold mb-1">Reference server implementation</h3>
+                <p class="text-slate-600 text-sm md:text-base">Our biggest gap. Aqua ships a working binary &mdash; we need a deployable provider server that implements the core routing spec. This is our top priority.</p>
+              </div>
+
+              <div class="border-l-4 border-slate-900 pl-4 md:pl-5">
+                <h3 class="font-semibold mb-1">End-to-end encryption</h3>
+                <p class="text-slate-600 text-sm md:text-base">AMP v1 does not encrypt payloads. Aqua gets transport encryption for free. We need to accelerate the X25519 key exchange design for E2E encryption in v2.</p>
+              </div>
+
+              <div class="border-l-4 border-slate-900 pl-4 md:pl-5">
+                <h3 class="font-semibold mb-1">Compiled SDK and CLI</h3>
+                <p class="text-slate-600 text-sm md:text-base">Bash scripts work for the Claude Code plugin but cannot scale. A TypeScript SDK and a standalone CLI binary would make AMP accessible beyond any single AI agent platform.</p>
+              </div>
+
+              <div class="border-l-4 border-slate-900 pl-4 md:pl-5">
+                <h3 class="font-semibold mb-1">Idempotency keys in the spec</h3>
+                <p class="text-slate-600 text-sm md:text-base">Aqua's per-message idempotency key is a good pattern. We plan to adopt this as a first-class field in the AMP message envelope.</p>
+              </div>
+
+              <div class="border-l-4 border-slate-900 pl-4 md:pl-5">
+                <h3 class="font-semibold mb-1">Portable identity documents</h3>
+                <p class="text-slate-600 text-sm md:text-base">Inspired by Aqua's signed contact cards, we want to define a portable agent identity format that can be verified without contacting the provider.</p>
+              </div>
+
+              <div class="border-l-4 border-slate-900 pl-4 md:pl-5">
+                <h3 class="font-semibold mb-1">Group messaging</h3>
+                <p class="text-slate-600 text-sm md:text-base">Aqua has a full group E2EE design with Sender Keys and Epoch Rotation. AMP has no group concept yet. Multi-agent collaboration requires it.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Choosing the Right Tool -->
+          <section>
+            <h2 id="right-tool" class="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Choosing the Right Tool</h2>
+            <p class="text-slate-700 leading-relaxed mb-6">
+              AMP and Aqua are not competing to solve the same problem in the same way. They represent genuinely different architectural philosophies, and the right choice depends on your use case.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-4 md:gap-6 mb-6">
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 md:p-6">
+                <h3 class="font-semibold mb-3 text-lg">Choose Aqua when</h3>
+                <ul class="space-y-2 text-slate-700 text-sm md:text-base">
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-1 shrink-0">&#8250;</span>
+                    <span>You need two agents to communicate right now with zero setup</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-1 shrink-0">&#8250;</span>
+                    <span>No infrastructure is available or desirable</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-1 shrink-0">&#8250;</span>
+                    <span>Both agents are online simultaneously</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-1 shrink-0">&#8250;</span>
+                    <span>Transport encryption is non-negotiable today</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-1 shrink-0">&#8250;</span>
+                    <span>NAT traversal is a primary concern</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 md:p-6">
+                <h3 class="font-semibold mb-3 text-lg">Choose AMP when</h3>
+                <ul class="space-y-2 text-slate-700 text-sm md:text-base">
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-1 shrink-0">&#8250;</span>
+                    <span>Agents go offline and need messages waiting for them</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-1 shrink-0">&#8250;</span>
+                    <span>You need organizational structure (tenants, scoping, policies)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-1 shrink-0">&#8250;</span>
+                    <span>Prompt injection defense is critical</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-1 shrink-0">&#8250;</span>
+                    <span>You need rich message semantics (types, priority, threading)</span>
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="text-slate-400 mt-1 shrink-0">&#8250;</span>
+                    <span>Cross-organization federation matters</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="text-slate-700 leading-relaxed mb-4">
+              The agent communication space is big enough for multiple approaches. Email and IRC coexisted for decades, solving different aspects of human communication. The same pattern is emerging for AI agents: structured, federated messaging for organizational use alongside lightweight P2P for direct agent interaction.
+            </p>
+            <p class="text-slate-700 leading-relaxed">
+              We think both protocols make the ecosystem stronger. More open standards mean fewer proprietary silos. And that is good for everyone building with AI agents.
+            </p>
+          </section>
+
+        </div>
+
+        <!-- Article Footer -->
+        <footer class="mt-12 md:mt-16 pt-8 border-t border-slate-200">
+          <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+            <div>
+              <p class="text-sm text-slate-500 mb-1">Published by <a href="https://x.com/jkpelaez" class="text-slate-700 hover:text-slate-900 transition-colors">Juan Pel&aacute;ez</a> at <a href="https://23blocks.com" class="text-slate-700 hover:text-slate-900 transition-colors">23blocks</a></p>
+              <p class="text-sm text-slate-500">Have thoughts? <a href="https://github.com/agentmessaging/protocol/discussions" class="text-slate-700 hover:text-slate-900 transition-colors">Join the discussion</a> or reach out on <a href="https://x.com/agentmessaging" class="text-slate-700 hover:text-slate-900 transition-colors">X</a>.</p>
+            </div>
+            <a href="/blog/" class="text-sm text-slate-500 hover:text-slate-700 transition-colors inline-flex items-center gap-1 shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+              All posts
+            </a>
+          </div>
+        </footer>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-50 border-t border-slate-200 py-6 md:py-8">
+    <div class="max-w-6xl mx-auto px-4 md:px-6">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div class="flex items-center justify-center md:justify-start gap-2 text-slate-600">
+          <img src="/assets/images/amp-logo-trimmed.png" alt="{AMP}" style="height: 24px;">
+          <span class="text-sm">Agent Messaging Protocol</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 md:gap-5 text-xs md:text-sm text-slate-500">
+          <a href="https://github.com/agentmessaging" class="hover:text-slate-900 transition-colors" title="GitHub">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com/agentmessaging" class="hover:text-slate-900 transition-colors" title="X">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="mailto:hello@agentmessaging.org" class="hover:text-slate-900 transition-colors" title="Email">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </a>
+          <span class="text-slate-300">|</span>
+          <a href="https://github.com/agentmessaging/protocol/blob/main/LICENSE" class="hover:text-slate-900 transition-colors">Apache 2.0</a>
+          <a href="https://github.com/agentmessaging/protocol/blob/main/SECURITY.md" class="hover:text-slate-900 transition-colors">Security</a>
+          <span>By <a href="https://23blocks.com" class="text-slate-700 hover:text-slate-900 transition-colors">23blocks</a></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
