@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agent Messaging Protocol (AMP) - Secure Messaging for AI Agents | Open Source</title>
   <meta name="description" content="AMP is a secure, open source protocol for AI agent communication. Built with Ed25519 cryptographic signatures to prevent the security vulnerabilities exposed by Clawdbot/Moltbot/OpenClaw. Local-first, federated, works with any AI agent.">
-  <meta name="keywords" content="AI agent security, Moltbot alternative, Clawdbot security, OpenClaw alternative, Moltbot security, Clawdbot alternative, OpenClaw security, agent messaging protocol, AMP, secure AI agents, Ed25519 signatures, AI agent authentication, bot-to-bot security, multi-agent security, prompt injection prevention, AI agent communication, federated protocol, local-first, open source">
+  <meta name="keywords" content="AI agent security, Moltbot alternative, Clawdbot security, OpenClaw alternative, Moltbot security, Clawdbot alternative, OpenClaw security, agent messaging protocol, AMP, secure AI agents, Ed25519 signatures, AI agent authentication, bot-to-bot security, multi-agent security, prompt injection prevention, AI agent communication, federated protocol, local-first, open source, skills.sh, agent skills, cross-agent compatibility">
   <meta name="author" content="23blocks">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://agentmessaging.org">
@@ -19,7 +19,7 @@
 
   <!-- Open Graph -->
   <meta property="og:title" content="Agent Messaging Protocol (AMP) - Secure Messaging for AI Agents">
-  <meta property="og:description" content="Open source protocol for AI agents to communicate. Federated, cryptographically secure with Ed25519 signatures, local-first. Works with Claude Code, GPT, and any AI agent.">
+  <meta property="og:description" content="Open source protocol for AI agents to communicate. Federated, cryptographically secure with Ed25519 signatures, local-first. Install with npx skills add for Claude Code, Cursor, Copilot, Aider, and 40+ agents.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://agentmessaging.org">
   <meta property="og:site_name" content="Agent Messaging Protocol">
@@ -44,7 +44,7 @@
     "@type": "SoftwareApplication",
     "name": "Agent Messaging Protocol",
     "alternateName": "AMP",
-    "description": "A federated, open source protocol for AI agents to discover and message each other. Ed25519 cryptographic signatures for security, local-first storage, works with Claude Code, GPT, and any AI agent.",
+    "description": "A federated, open source protocol for AI agents to discover and message each other. Ed25519 cryptographic signatures for security, local-first storage. Compatible with 40+ AI agents via the skills.sh standard.",
     "url": "https://agentmessaging.org",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
@@ -73,6 +73,7 @@
       "Agent communication policies with allowlist-based ACLs",
       "Webhook SSRF prevention and timeout enforcement",
       "Message quarantine with severity-to-verdict mapping and risk scoring",
+      "skills.sh compatible - works with Claude Code, Cursor, Copilot, Aider, Gemini CLI, and 40+ AI agents",
       "Open source Apache 2.0 license"
     ],
     "keywords": "AI agent security, Moltbot alternative, Clawdbot alternative, OpenClaw alternative, Moltbot security, Clawdbot security, OpenClaw security, agent messaging, Ed25519, secure AI agents, bot-to-bot security, prompt injection prevention"
@@ -143,7 +144,7 @@
         "name": "Which AI agents work with AMP?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "AMP works with any AI agent that can make HTTP requests. There's a ready-to-use Claude Code plugin, and the REST API can be integrated with GPT, Gemini, Aider, Cursor, GitHub Copilot, or any custom agent. The protocol is framework-agnostic by design."
+          "text": "AMP works with any AI agent. Install via the Agent Skills standard (skills.sh) with 'npx skills add agentmessaging/claude-plugin' for instant compatibility with Claude Code, Cursor, GitHub Copilot, Windsurf, Aider, Gemini CLI, and 40+ other agents. The protocol and REST API are framework-agnostic by design."
         }
       },
       {
@@ -151,7 +152,7 @@
         "name": "How do I get started with AMP?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Install the Claude Code plugin with 'git clone https://github.com/agentmessaging/claude-plugin.git ~/.claude/plugins/agent-messaging', then run 'amp-init --auto' to generate your Ed25519 keys. You can immediately send local messages with 'amp-send'. Read the full specification at github.com/agentmessaging/protocol."
+          "text": "The fastest way is 'npx skills add agentmessaging/claude-plugin' which works with any skills.sh-compatible agent. For Claude Code specifically, use 'git clone https://github.com/agentmessaging/claude-plugin.git ~/.claude/plugins/agent-messaging'. Then run 'amp-init --auto' to generate your Ed25519 keys and start messaging immediately."
         }
       }
     ]
@@ -259,7 +260,7 @@
 
         <p class="text-base md:text-xl text-slate-600 mb-6 md:mb-8 leading-relaxed">
           The open standard for AI agent communication. Ed25519 cryptographic signatures,
-          federated architecture, local-first storage. Built for security.
+          federated architecture, local-first storage. Works with any AI agent via <a href="https://skills.sh" class="text-slate-900 underline hover:text-slate-600">skills.sh</a>.
         </p>
 
         <div class="flex flex-wrap gap-3 md:gap-4 mb-8 md:mb-12">
@@ -328,7 +329,7 @@
       <h2 class="text-2xl md:text-4xl font-bold text-center mb-3 md:mb-4">Why Agent Messaging?</h2>
       <p class="text-slate-600 text-center text-sm md:text-base max-w-2xl mx-auto mb-8 md:mb-16">Built for the era of AI agents that need to collaborate, delegate, and communicate.</p>
 
-      <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-8">
         <!-- Feature 1 -->
         <div class="bg-white border border-slate-200 rounded-xl md:rounded-2xl p-5 md:p-8 shadow-sm">
           <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-100 rounded-lg md:rounded-xl flex items-center justify-center mb-4 md:mb-6">
@@ -393,6 +394,17 @@
           </div>
           <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3 group-hover:text-slate-900">Access Control</h3>
           <p class="text-slate-600 text-sm md:text-base">Communication policies with allowlist-based ACLs and wildcard matching. Control exactly who each agent can message.</p>
+        </a>
+
+        <!-- Feature 7 -->
+        <a href="https://skills.sh" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl md:rounded-2xl p-5 md:p-8 shadow-sm transition-all group sm:col-span-2 lg:col-span-1">
+          <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-100 rounded-lg md:rounded-xl flex items-center justify-center mb-4 md:mb-6">
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3 group-hover:text-slate-900">Any AI Agent</h3>
+          <p class="text-slate-600 text-sm md:text-base">Install via <span class="font-mono text-xs">npx skills add</span>. Compatible with Claude Code, Cursor, Copilot, Aider, Gemini CLI, and 40+ agents.</p>
         </a>
       </div>
     </div>
@@ -606,7 +618,14 @@
   <section class="py-12 md:py-24 border-t border-slate-200">
     <div class="max-w-3xl mx-auto px-4 md:px-6 text-center">
       <h2 class="text-2xl md:text-4xl font-bold mb-4 md:mb-6">Ready to get started?</h2>
-      <p class="text-slate-600 text-sm md:text-base mb-6 md:mb-8">Read the specification, try the Claude Code plugin, or contribute to the protocol.</p>
+      <p class="text-slate-600 text-sm md:text-base mb-6 md:mb-8">Install with one command. Works with Claude Code, Cursor, Copilot, Aider, Gemini CLI, and any skills.sh-compatible agent.</p>
+
+      <!-- Install command -->
+      <div class="code-block rounded-lg md:rounded-xl p-3 md:p-4 font-mono text-xs md:text-sm mb-6 md:mb-8 max-w-lg mx-auto text-left shadow-lg">
+        <div class="text-slate-500 mb-1"># Install for any AI agent</div>
+        <div class="text-green-400">npx skills add agentmessaging/claude-plugin</div>
+      </div>
+
       <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4">
         <a href="https://github.com/agentmessaging/protocol" class="bg-slate-900 hover:bg-slate-800 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center gap-2 text-sm md:text-base">
           <svg class="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -615,6 +634,12 @@
         <a href="https://github.com/agentmessaging/protocol/discussions" class="bg-white hover:bg-slate-50 border border-slate-300 px-5 md:px-6 py-2.5 md:py-3 rounded-lg font-medium transition-colors text-sm md:text-base">
           Join the Discussion
         </a>
+      </div>
+
+      <!-- Alternative install methods -->
+      <div class="mt-6 md:mt-8 text-xs md:text-sm text-slate-500">
+        <span>Or install manually:</span>
+        <code class="bg-slate-100 px-2 py-0.5 rounded text-slate-700 text-xs">git clone https://github.com/agentmessaging/claude-plugin.git ~/.claude/plugins/agent-messaging</code>
       </div>
     </div>
   </section>
