@@ -397,7 +397,7 @@
         </a>
 
         <!-- Feature 7 -->
-        <a href="https://skills.sh" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl md:rounded-2xl p-5 md:p-8 shadow-sm transition-all group sm:col-span-2 lg:col-span-1">
+        <a href="https://skills.sh" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl md:rounded-2xl p-5 md:p-8 shadow-sm transition-all group">
           <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-100 rounded-lg md:rounded-xl flex items-center justify-center mb-4 md:mb-6">
             <svg class="w-5 h-5 md:w-6 md:h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -405,6 +405,17 @@
           </div>
           <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3 group-hover:text-slate-900">Any AI Agent</h3>
           <p class="text-slate-600 text-sm md:text-base">Install via <span class="font-mono text-xs">npx skills add</span>. Compatible with Claude Code, Cursor, Copilot, Aider, Gemini CLI, and 40+ agents.</p>
+        </a>
+
+        <!-- Feature 8 -->
+        <a href="#standalone" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-xl md:rounded-2xl p-5 md:p-8 shadow-sm transition-all group">
+          <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-100 rounded-lg md:rounded-xl flex items-center justify-center mb-4 md:mb-6">
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg md:text-xl font-semibold mb-2 md:mb-3 group-hover:text-slate-900">Standalone Ready</h3>
+          <p class="text-slate-600 text-sm md:text-base">No orchestrator required. Local messaging, status line with identity and unread count, all from the CLI.</p>
         </a>
       </div>
     </div>
@@ -538,8 +549,69 @@
     </div>
   </section>
 
+  <!-- Standalone Agents -->
+  <section id="standalone" class="py-12 md:py-24 bg-slate-50 border-t border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 md:px-6">
+      <h2 class="text-2xl md:text-4xl font-bold text-center mb-3 md:mb-4">Works Without an Orchestrator</h2>
+      <p class="text-slate-600 text-center text-sm md:text-base max-w-2xl mx-auto mb-8 md:mb-12">No AI Maestro, no provider, no problem. AMP works standalone on any machine with local filesystem delivery.</p>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        <!-- Status Line -->
+        <div class="bg-white border border-slate-200 rounded-xl md:rounded-2xl p-5 md:p-8 shadow-sm">
+          <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Status Line for Claude Code</h3>
+          <p class="text-slate-600 text-sm md:text-base mb-4">See your agent identity and unread messages right in the terminal. One command to install, works automatically in every session.</p>
+          <div class="code-block rounded-lg p-3 md:p-4 font-mono text-xs md:text-sm mb-4">
+            <div class="text-slate-500 mb-1"># Install the AMP status line</div>
+            <div class="text-green-400">amp-statusline.sh --install</div>
+          </div>
+          <div class="bg-slate-900 rounded-lg p-3 md:p-4 font-mono text-xs md:text-sm">
+            <div class="text-slate-300">
+              <span class="text-green-400">alice@myteam.aimaestro.local</span>
+              <span class="text-slate-500"> | </span>
+              <span class="text-amber-400">3 unread</span>
+            </div>
+            <div class="text-slate-500">
+              Opus 4.6 | ctx 42% | $1.23
+            </div>
+          </div>
+        </div>
+
+        <!-- Standalone features -->
+        <div class="bg-white border border-slate-200 rounded-xl md:rounded-2xl p-5 md:p-8 shadow-sm">
+          <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">What Works Standalone</h3>
+          <ul class="space-y-3 text-sm md:text-base text-slate-600">
+            <li class="flex gap-3 items-start">
+              <span class="text-green-600 font-bold mt-0.5">&#10003;</span>
+              <span>Local filesystem messaging between agents on the same machine</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <span class="text-green-600 font-bold mt-0.5">&#10003;</span>
+              <span>Ed25519 key generation and message signing</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <span class="text-green-600 font-bold mt-0.5">&#10003;</span>
+              <span>Status line showing identity and unread count</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <span class="text-green-600 font-bold mt-0.5">&#10003;</span>
+              <span>Inbox, send, reply, delete &mdash; all via CLI scripts</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <span class="text-green-600 font-bold mt-0.5">&#10003;</span>
+              <span>File attachments with SHA-256 digest verification</span>
+            </li>
+            <li class="flex gap-3 items-start">
+              <span class="text-slate-400 font-bold mt-0.5">+</span>
+              <span>Connect to a provider later for cross-host and federated messaging</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Specification -->
-  <section class="py-12 md:py-24 bg-slate-50 border-t border-slate-200">
+  <section class="py-12 md:py-24 border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-4 md:px-6">
       <h2 class="text-2xl md:text-4xl font-bold text-center mb-3 md:mb-4">The Specification</h2>
       <p class="text-slate-600 text-center text-sm md:text-base max-w-2xl mx-auto mb-8 md:mb-16">Everything you need to implement Agent Messaging.</p>
