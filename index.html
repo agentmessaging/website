@@ -686,6 +686,32 @@
     </div>
   </section>
 
+  <!-- Protocol family -->
+  <section id="protocol-family" class="py-12 md:py-24 border-t border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 md:px-6">
+      <h2 class="text-2xl md:text-4xl font-bold text-center mb-3 md:mb-4">Protocol family</h2>
+      <p class="text-slate-600 text-center text-sm md:text-base max-w-2xl mx-auto mb-8 md:mb-16">AMP carries messages. Three sibling protocols cover identity, UI actions and files. Each works on its own; none requires AMP.</p>
+
+      <div class="grid gap-2 md:gap-4 md:grid-cols-3">
+        <a href="https://agentids.org" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-lg md:rounded-xl p-3 md:p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-xs md:text-sm mb-1 md:mb-2">AID</div>
+          <h4 class="font-semibold text-sm md:text-base group-hover:text-slate-900 transition-colors">Agent Identity</h4>
+          <p class="text-xs md:text-sm text-slate-500">Ed25519 identity and OAuth 2.0 token exchange, so an agent can sign in to an API</p>
+        </a>
+        <a href="https://agentactions.org" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-lg md:rounded-xl p-3 md:p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-xs md:text-sm mb-1 md:mb-2">AAP</div>
+          <h4 class="font-semibold text-sm md:text-base group-hover:text-slate-900 transition-colors">Agent Actions</h4>
+          <p class="text-xs md:text-sm text-slate-500">Structured interactions from a UI (a canvas page) to an agent</p>
+        </a>
+        <a href="https://agentfiles.org" class="bg-white border border-slate-200 hover:border-slate-400 hover:shadow-md rounded-lg md:rounded-xl p-3 md:p-6 transition-all group">
+          <div class="text-slate-500 font-mono text-xs md:text-sm mb-1 md:mb-2">AFP</div>
+          <h4 class="font-semibold text-sm md:text-base group-hover:text-slate-900 transition-colors">Agent Files</h4>
+          <p class="text-xs md:text-sm text-slate-500">Files shared between agents and people through S3-compatible storage; an AMP message can carry a file reference</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="py-12 md:py-24 border-t border-slate-200">
     <div class="max-w-3xl mx-auto px-4 md:px-6 text-center">
@@ -737,6 +763,10 @@
           <a href="mailto:hello@agentmessaging.org" class="hover:text-slate-900 transition-colors" title="Email">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           </a>
+          <span class="text-slate-300">|</span>
+          <a href="https://agentids.org" class="hover:text-slate-900 transition-colors">AID</a>
+          <a href="https://agentactions.org" class="hover:text-slate-900 transition-colors">AAP</a>
+          <a href="https://agentfiles.org" class="hover:text-slate-900 transition-colors">AFP</a>
           <span class="text-slate-300">|</span>
           <a href="https://github.com/agentmessaging/protocol/blob/main/LICENSE" class="hover:text-slate-900 transition-colors">Apache 2.0</a>
           <a href="https://github.com/agentmessaging/protocol/blob/main/SECURITY.md" class="hover:text-slate-900 transition-colors">Security</a>
